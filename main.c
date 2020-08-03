@@ -6,11 +6,13 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 16:27:57 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/07/21 19:44:06 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/07/25 16:32:18 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
+
+//not in project
 
 typedef struct s_data
 {

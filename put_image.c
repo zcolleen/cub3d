@@ -6,11 +6,13 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 17:37:06 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/07/22 20:29:31 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/07/25 17:43:18 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
+#include <stdio.h>
+//not in project
 
 typedef struct p_img
 {
@@ -53,6 +55,7 @@ int main()
 	myimg.mlx_img = mlx_xpm_file_to_image(myimg.mlx_ptr, myimg.path_to_img, &(myimg.width), &(myimg.hight));
 	myimg.coordinate = 0;
 	mlx_put_image_to_window(myimg.mlx_ptr, myimg.mlx_win, myimg.mlx_img, 0, 0);
-	mlx_key_hook(myimg.mlx_win, s_move, &myimg);
+//	printf("%d\n", myimg.width);
+//	mlx_key_hook(myimg.mlx_win, s_move, &myimg);
 	mlx_loop(myimg.mlx_ptr);
 }
