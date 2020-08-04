@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 16:21:12 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/02 19:01:16 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/04 19:36:14 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,23 @@
 #include <stdio.h>
 #include <mlx.h>
 #include <math.h>
+
+typedef struct	s_sprite
+{
+	double		*dis_mass;
+	double		dist_to_sprite;
+	double		x;
+	double		y;
+	double		trace;
+	void		*img;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
+	char		*addr;
+	int			width;
+	int			hight;
+	char		*path_to_sprite;
+}				t_sprite;
 
 typedef struct	s_reader 
 {
@@ -101,6 +118,8 @@ typedef struct	s_play
 {
 	double		x;
 	double		y;
+	int 		i;
+	int 		j;
 	int			orientation;
 	int			max_y;
 	int			*max_x;
@@ -151,6 +170,7 @@ typedef struct	s_img
 	t_south		*south;
 	t_f_c		*f_c;
 	t_reader	*reader;
+	t_sprite	*sprite;
 	char		**map;
 }				t_img;
 
@@ -158,5 +178,12 @@ double		casting(char **map, t_img *myimg, double trace, double save_angle);
 void		proector(double distance, t_img *myimg, int x, double angle);
 int			init(char **map, t_img *myimg);
 void		reader(t_img *myimg, char **argv);
+void		cleaner(t_img *myimg);
+void		put_pixel(t_img *data, int x, int y, int color);
+int			init_sprite(t_img *myimg);
+void		sprite_drawer(t_img *myimg);
+
+
+
 
 #endif

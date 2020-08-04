@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:35:10 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/01 23:42:37 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/04 19:51:35 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	put_pixel(t_img *data, int x, int y, int color)
 	char *dst;
 
 	dst = data->addr + y * data->line_length + x * (data->bits_per_pixel / 8);
-	*(unsigned int*)dst = color;
+	*(unsigned int*)dst = color;//
 }
 
 int		take_color(t_img *myimg, int y, double k)

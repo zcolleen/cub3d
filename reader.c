@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/30 19:15:29 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/02 18:40:45 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/03 16:42:32 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,9 @@ void	alloc_map(char **argv, int j, t_img *myimg, int i, int fd)
 
 void	cleaner(t_img *myimg)
 {
+	int i;
+
+	i = 0;
 	if (myimg->reader->flag_e == 1)
 		free(myimg->reader->path_to_east);
 	if (myimg->reader->flag_n == 1)
@@ -78,6 +81,15 @@ void	cleaner(t_img *myimg)
 		free(myimg->reader->path_to_south);
 	if (myimg->reader->flag_sp == 1)
 		free(myimg->reader->path_to_sprite);
+	if (myimg->reader->flag_map == 1)
+	{
+		while (myimg->reader->map[i] != NULL)
+		{
+			free(myimg->reader->map[i]);
+			i++;
+		}
+		free(myimg->reader->map);
+	}
 	free(myimg->reader);
 	free(myimg);
 }
@@ -306,16 +318,18 @@ int		parce_line(t_img *myimg, char *line)
 	i = 0;
 	while (line[i] == ' ' && line[i] != '\0' && line[i + 1] != '\0')
 		i++;
-	if (line[i] == 'S' && line[i + 1] != 'O')
+	if (line[i] == 'S' && line[i + 1] != 'O' && !(myimg->reader->flag_sp))
 		return(parcer(line + i + 1, myimg, line[i], 0));
-	else if ((line[i] == 'N' && line[i + 1] == 'O') || (line[i] == 'S' && line[i + 1] == 'O') ||
-	(line[i] == 'W' && line[i + 1] == 'E') || (line[i] == 'E' && line[i + 1] == 'A'))
+	else if ((line[i] == 'N' && line[i + 1] == 'O' && !(myimg->reader->flag_n)) ||
+	(line[i] == 'S' && line[i + 1] == 'O' && !(myimg->reader->flag_s)) ||
+	(line[i] == 'W' && line[i + 1] == 'E' && !(myimg->reader->flag_w))
+	|| (line[i] == 'E' && line[i + 1] == 'A' && !(myimg->reader->flag_e)))
 		return (parcer(line + i + 2, myimg, line[i], 1));
-	else if (line[i] == 'F')
+	else if (line[i] == 'F' && !(myimg->reader->flag_floor))
 		return (parcer_f_c(line + i + 1, myimg, line[i]));
-	else if (line[i] == 'C')
+	else if (line[i] == 'C' && !(myimg->reader->flag_cell))
 		return (parcer_f_c(line + i + 1, myimg, line[i]));
-	else if (line[i] == 'R')
+	else if (line[i] == 'R' && !(myimg->reader->flag_res))
 		return (parcer_r(line + i + 1, myimg));
 	else if (line[i] != ' ' && line[i] != '\0')
 	{
@@ -380,6 +394,84 @@ void	get_l(int fd, t_img *myimg, int *i, int *j)
 	free(line);
 }
 
+int 	check_for_valid_char(char c)
+{
+	if (c == ' ' || c == '\0' || c == '1' ||
+	c == '2' || c == '0')
+		return (1);
+	if (c == 'S' || c == 'W' ||
+	c == 'E' || c == 'N')
+		return (0);
+	return (-1);
+}
+
+void	clean_exit(t_img *myimg)
+{
+	cleaner(myimg);
+	ft_putstr_fd("Error:\ninvalid char", 1);
+	exit(0);
+}
+
+void	map_parser(t_img *myimg)
+{
+	int i;
+	int j;
+	int save;
+	int flag;
+
+	i = 0;
+	j = 0;
+	flag = 0;
+	save = 0;
+	while (myimg->reader->map[i] != NULL)
+	{
+		j = 0;
+		while (myimg->reader->map[i][j] != '\0')
+		{
+			if ((save = check_for_valid_char(myimg->reader->map[i][j])) > 0 ||
+			(save == 0 && flag == 0))
+				j++;
+			else
+				clean_exit(myimg);
+			if (save == 0)
+				flag = 1;
+		}
+		i++;
+	}
+}
+
+void	closer(int i, int j, int k, int c, int b)
+{
+	close(i);
+	close(j);
+	close(k);
+	close(c);
+	close(b);
+}
+
+void	path_parser(t_img *myimg)
+{
+	int fd1;
+	int fd2;
+	int fd3;
+	int fd4;
+	int fd5;
+	
+
+	if ((fd1 = open(myimg->reader->path_to_east, O_RDONLY)) < 0 ||
+	(fd2 = open(myimg->reader->path_to_north, O_RDONLY)) < 0 ||
+	(fd3 = open(myimg->reader->path_to_south, O_RDONLY)) < 0 ||
+	(fd4 = open(myimg->reader->path_to_sprite, O_RDONLY)) < 0 ||
+	(fd5 = open(myimg->reader->path_to_west, O_RDONLY)) < 0)
+	{
+		closer(fd1, fd2, fd3, fd4, fd5);
+		cleaner(myimg);
+		ft_putstr_fd("Error:\ninvalid path\n", 1);
+		exit(0);
+	}
+	closer(fd1, fd2, fd3, fd4, fd5);
+}
+
 void	reader(t_img *myimg, char **argv)
 {
 	int			fd;
@@ -406,6 +498,8 @@ void	reader(t_img *myimg, char **argv)
 	}
 	get_l(fd, myimg, &i, &j);
 	alloc_map(argv, j, myimg, i, fd);
+	path_parser(myimg);
+	map_parser(myimg);
 }
 
 /*int		main(int argc, char **argv)

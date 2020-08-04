@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 16:15:58 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/02 19:08:11 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/04 19:53:53 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,15 @@ int		starter(char **argv)//начало кода
 	// 	return (-1);
 	reader(myimg, argv);
 	init(myimg->reader->map, myimg);
+	if (init_sprite(myimg) == -1)
+		return (-1);
 	myimg->play->trace = starting_trace(myimg);
 	myimg->map = myimg->reader->map;
-	while (myimg->map[i] != NULL)
-	{
-		printf("%sok\n", myimg->map[i]);
-		i++;
-	}
+	// while (myimg->map[i] != NULL)
+	// {
+	// 	printf("%sok\n", myimg->map[i]);
+	// 	i++;
+	// }
 	
 	if (save_textures(myimg) == -1 || save_f_c(myimg) == -1)
 		return (-1);
@@ -126,19 +128,23 @@ int		drawer(t_img *myimg)
 	double	save;
 	int		x;
 	double	trace;
+	double	dist;
 
 	save = myimg->play->trace + PI / 3.0;
 	trace = myimg->play->trace;
 	x = 0;
-	while (trace <= save)
+	while (trace < save && x < myimg->plane_x)
 	{
 		// angle = (trace / PI) * 180;
 		// printf("angle : %f = %f\n", trace, angle);
-		proector(casting(myimg->map, myimg, trace, save), myimg, x, trace);
+		dist = casting(myimg->map, myimg, trace, save);
+		myimg->sprite->dis_mass[x] = dist;
+		proector(dist, myimg, x, trace);
 		//printf("\nplayers coordinate: %f - x %f - y\n", myimg->play->x, myimg->play->y);
 		trace = (PI / 3.0) / myimg->plane_x + trace;
 		x++;
 	}
+	sprite_drawer(myimg);
 	return (0);
 }
 
@@ -173,6 +179,7 @@ int		hooker(int keycode, t_img *myimg)
 		myimg->play->y = myimg->play->y - 3 * sin(myimg->play->trace + PI / 6.0 - PI / 2.0);				
 	}
 	drawer(myimg);
+sprite_drawer(myimg);
 	mlx_put_image_to_window(myimg->mlx_ptr, myimg->mlx_win, myimg->mlx_img, 0, 0);
 	return (0);
 }

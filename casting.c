@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 19:18:09 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/02 19:03:08 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/03 20:03:47 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ int		intersect(char **map, double x, double y, t_img *myimg)
 	a = (int)(y / RES);
 	b = (int)(x / RES);
 	// ft_putnbr_fd(myimg->play->max_y, 1);
+	// ft_putnbr_fd(a, 1);
+	// write(1, ", ", 2);
+	// ft_putnbr_fd(b, 1);
+	// write(1, "\n", 1);
 	if (a < 0 || b < 0 || a >= myimg->play->max_y || b >= myimg->play->max_x[a])
 		return (1);
 	// write(1, &(map[(int)(y / RES)][(int)(x / RES)]), 1);
@@ -111,7 +115,7 @@ int			undefault_angle(double trace)
 {
 	if (trace == PI / 2.0 || trace == 3.0 * PI / 2.0)
 		return (1);
-	if (trace == PI || trace == 2.0 * PI)
+	if (trace == PI || trace == 0)
 		return (2);
 	return (0);
 }
@@ -141,13 +145,13 @@ double		casting(char **map, t_img *myimg, double trace, double save_angle)
 	double	save;
 
 	save = save_angle - PI / 6.0 - trace;
-	if (save > 2.0 * PI)
+	while (save >= 2.0 * PI)
 		save = save - 2.0 * PI;
-	if (save < 0)
+	while (save < 0)
 		save = save + 2.0 * PI;
-	if (trace < 0)
+	while (trace < 0)
 		trace = trace + 2.0 * PI;
-	if (trace > 2 * PI)
+	while (trace >= 2 * PI)
 		trace = trace - 2 * PI;
 //	printf("fixed angle: %f\n", trace / PI * 180.0);
 	if (undefault_angle(trace) == 1)

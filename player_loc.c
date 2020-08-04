@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 14:47:36 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/02 18:33:32 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/03 21:33:45 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	player_coordinates(int i, int j, t_img *data, int orient)
 {
+	data->play->i = i;
+	data->play->j = j;
 	data->play->x = j * RES + RES / 2 - 1;
 	data->play->y = i * RES + RES / 2 - 1;
 	data->play->orientation = orient;
@@ -66,6 +68,44 @@ void	window_init(t_img *myimg)
 	&(myimg->line_length), &(myimg->endian));
 }
 
+void	flood_clean(t_img *myimg)
+{
+	int i;
+
+	i = 0;
+	free(myimg->reader->path_to_west);
+	free(myimg->reader->path_to_east);
+	free(myimg->reader->path_to_sprite);
+	free(myimg->reader->path_to_north);
+	free(myimg->reader->path_to_south);
+	while (myimg->reader->map[i] != NULL)
+	{
+		free(myimg->reader->map[i]);
+		i++;
+	}
+	free(myimg->reader->map);
+	free(myimg->reader);
+	free(myimg->play->max_x);
+	free(myimg->play);
+	free(myimg);
+	ft_putstr_fd("Error:\nyour map does not close", 1);
+	exit(0);
+}
+
+void	flood_fill(char **map, t_img *myimg, int x, int y)
+{
+	if (x < 0 || y < 0 || y >= myimg->play->max_y ||
+	x >= myimg->play->max_x[y] || map[y][x] == ' ')
+		flood_clean(myimg);
+	if (map[y][x] == '1' || map[y][x] == '.')
+		return ;
+	map[y][x] = '.';
+	flood_fill(map, myimg, x + 1, y);
+	flood_fill(map, myimg, x - 1, y);
+	flood_fill(map, myimg, x, y + 1);
+	flood_fill(map, myimg, x, y - 1);
+}
+
 int		init(char **map, t_img *myimg)
 {
 	t_play	*play;
@@ -75,7 +115,6 @@ int		init(char **map, t_img *myimg)
 	i = 0;
 	if (!(play = (t_play *)malloc(sizeof(t_play))))
 		return (-1);
-	window_init(myimg);
 	myimg->play = play;
 	search_for_player(map, myimg);
 	if (!(max_x = (int *)malloc(sizeof(int) * myimg->play->max_y)))
@@ -86,5 +125,8 @@ int		init(char **map, t_img *myimg)
 		i++;
 	}
 	myimg->play->max_x = max_x;
+	// printf("\n%d\n%d\n", myimg->play->i, myimg->play->j);
+	flood_fill(map, myimg, myimg->play->j, myimg->play->i);
+	window_init(myimg);
 	return (0);
 }
