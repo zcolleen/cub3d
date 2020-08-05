@@ -1,3 +1,3 @@
 cc -I /usr/local/include main.c -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit
 
-cc -I /usr/local/include cub3d.c casting.c drowing.c player_loc.c sprite.c reader.c gnl/get_next_line.c gnl/get_next_line_utils.c libft/libft.a -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit
+cc -I /usr/local/include cub3d.c casting.c drowing.c init.c sprite.c reader.c gnl/get_next_line.c gnl/get_next_line_utils.c libft/libft.a -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit

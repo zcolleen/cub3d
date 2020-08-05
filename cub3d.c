@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 16:15:58 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/04 19:53:53 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/05 13:44:01 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,9 @@ int		starter(char **argv)//начало кода
 	reader(myimg, argv);
 	init(myimg->reader->map, myimg);
 	if (init_sprite(myimg) == -1)
-		return (-1);
+	 	return (-1);
+	write_sprite(myimg);
+//	flood_fill(myimg->reader->map, myimg, myimg->play->j, myimg->play->i);
 	myimg->play->trace = starting_trace(myimg);
 	myimg->map = myimg->reader->map;
 	// while (myimg->map[i] != NULL)
@@ -144,7 +146,7 @@ int		drawer(t_img *myimg)
 		trace = (PI / 3.0) / myimg->plane_x + trace;
 		x++;
 	}
-	sprite_drawer(myimg);
+//	sprite_drawer(myimg);
 	return (0);
 }
 
@@ -155,9 +157,9 @@ int		hooker(int keycode, t_img *myimg)
 	myimg->addr = mlx_get_data_addr(myimg->mlx_img, &(myimg->bits_per_pixel),
 	&(myimg->line_length), &(myimg->endian));
 	if (keycode == 123)
-		myimg->play->trace = myimg->play->trace - (10 * PI) / myimg->plane_x;
+		myimg->play->trace = myimg->play->trace - (5 * PI) / myimg->plane_x;
 	if (keycode == 124)
-		myimg->play->trace = myimg->play->trace + (10 * PI) / myimg->plane_x;
+		myimg->play->trace = myimg->play->trace + (5 * PI) / myimg->plane_x;
 	if (keycode == 13)
 	{
 		myimg->play->x = myimg->play->x + 3 * cos(myimg->play->trace + PI / 6.0);
@@ -179,7 +181,6 @@ int		hooker(int keycode, t_img *myimg)
 		myimg->play->y = myimg->play->y - 3 * sin(myimg->play->trace + PI / 6.0 - PI / 2.0);				
 	}
 	drawer(myimg);
-sprite_drawer(myimg);
 	mlx_put_image_to_window(myimg->mlx_ptr, myimg->mlx_win, myimg->mlx_img, 0, 0);
 	return (0);
 }

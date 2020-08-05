@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player_loc.c                                       :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 14:47:36 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/03 21:33:45 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/05 13:32:11 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void	flood_clean(t_img *myimg)
 	free(myimg->reader);
 	free(myimg->play->max_x);
 	free(myimg->play);
+	free(myimg->sprite->dis_mass);
+	free(myimg->sprite);
 	free(myimg);
 	ft_putstr_fd("Error:\nyour map does not close", 1);
 	exit(0);
@@ -105,6 +107,8 @@ void	flood_fill(char **map, t_img *myimg, int x, int y)
 	flood_fill(map, myimg, x, y + 1);
 	flood_fill(map, myimg, x, y - 1);
 }
+
+
 
 int		init(char **map, t_img *myimg)
 {
@@ -126,7 +130,7 @@ int		init(char **map, t_img *myimg)
 	}
 	myimg->play->max_x = max_x;
 	// printf("\n%d\n%d\n", myimg->play->i, myimg->play->j);
-	flood_fill(map, myimg, myimg->play->j, myimg->play->i);
+//	flood_fill(map, myimg, myimg->play->j, myimg->play->i);
 	window_init(myimg);
 	return (0);
 }

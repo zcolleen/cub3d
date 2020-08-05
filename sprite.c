@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 13:01:20 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/04 20:25:32 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/05 13:35:42 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,36 @@ void	draw_sprite(t_img *myimg, double save)
 	}
 }
 
+void	write_sprite(t_img *myimg)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (myimg->reader->map[i] != NULL)
+	{
+		j = 0;
+		while (myimg->reader->map[i][j] != '\0')
+		{
+			if (myimg->reader->map[i][j] == '2')
+			{
+				myimg->sprite->y = i * RES + RES / 2.0 - 1;
+				myimg->sprite->x = j * RES + RES / 2.0 - 1;
+			}
+			j++;
+		}
+		i++;
+	}
+	printf("%f\n", myimg->sprite->y);
+	printf("%f\n", myimg->sprite->x);
+}
+
 void	sprite_drawer(t_img *myimg)
 {
 	double trace;
 	double save;
 
-	init_sprite(myimg);
-	myimg->sprite->x = 24.0 * RES + RES / 2.0 - 1;
-	myimg->sprite->y = 4.0 * RES + RES / 2.0 - 1;
 	myimg->sprite->dist_to_sprite = sqrt(pow((myimg->play->x - myimg->sprite->x), 2.0) +
 	pow((myimg->play->y - myimg->sprite->y), 2.0));
 	myimg->sprite->trace = atan((myimg->sprite->y - myimg->play->y) / (myimg->sprite->x - myimg->play->x));

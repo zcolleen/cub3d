@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 16:21:12 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/04 19:36:14 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/05 13:16:49 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,8 @@ void		cleaner(t_img *myimg);
 void		put_pixel(t_img *data, int x, int y, int color);
 int			init_sprite(t_img *myimg);
 void		sprite_drawer(t_img *myimg);
-
+void		write_sprite(t_img *myimg);
+void		flood_fill(char **map, t_img *myimg, int x, int y);
 
 
 
