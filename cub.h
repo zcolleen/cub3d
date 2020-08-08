@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 16:21:12 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/05 13:16:49 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/08 13:07:52 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define RES 64.0
 # define PLANE_X 1920.0
 # define PLANE_Y 1080.0
-# define SCALE 32.0
+# define SCALE 16.0
 
 #include "./gnl/get_next_line.h"
 #include <fcntl.h>
@@ -31,6 +31,8 @@ typedef struct	s_sprite
 	double		dist_to_sprite;
 	double		x;
 	double		y;
+	int			image_x;
+	int			image_y;
 	double		trace;
 	void		*img;
 	int			bits_per_pixel;

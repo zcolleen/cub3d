@@ -8,10 +8,10 @@
 			"name": "(lldb) Launch",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "/Users/zcolleen/Desktop/mycub/a.out",
+			"program": "/Users/zcolleen/Desktop/cub3d/a.out",
 			"args": ["test.cub"],
 			"stopAtEntry": false,
-			"cwd": "/Users/zcolleen/Desktop/mycub/",
+			"cwd": "/Users/zcolleen/Desktop/cub3d/",
 			"environment": [],
 			"externalConsole": false,
 			"MIMode": "lldb"
