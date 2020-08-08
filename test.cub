@@ -2,17 +2,17 @@
 
 R   1080   720
 
-F   220,100,90
-C  0,255,0
+F   0,255,127
+C  255,105,180
 
 
 WE  ./textures/girl.xpm 
-EA ./textures/eagle.xpm    
+EA ./textures/fat_boy.xpm    
 S  ./textures/sprite_1.xpm   
 
-SO ./textures/demon.xpm
+SO ./textures/girl3.xpm
 
-NO     ./textures/bird.xpm
+NO     ./textures/girl2.xpm
 
 
 

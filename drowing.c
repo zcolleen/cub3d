@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:35:10 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/05 12:22:55 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/08 13:25:26 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,11 @@ void	drowing_floor(int col_hight, int x, t_img *myimg)
 // 0x00FF00
 void	proector(double distance, t_img *myimg, int x, double angle)
 {
-	double	proj_dist;
 	int		col_hight;
 	int		top_point;
 	int		y_point;
-	double	k;
+	double	save_col;
+	double	save_top;
 //	double	save;
 
 //	save = myimg->play->trace + PI / 3.0;
@@ -92,10 +92,12 @@ void	proector(double distance, t_img *myimg, int x, double angle)
 	// 	angle = angle - 2 * PI;
 	// if (angle < 0)
 	// 	angle = angle + 2 * PI;
-	proj_dist = (myimg->plane_x / 2.0) / tan(PI / 6.0);
+//	proj_dist = (myimg->plane_x / 2.0) / tan(PI / 6.0);
 //	printf("proj_dist: %f", proj_dist);
 //	printf("distance: %f", distance);
-	col_hight = (int)((((myimg->plane_y * proj_dist)) / 2.0) / (SCALE * distance));
+	col_hight = (int)((((myimg->plane_y * (myimg->plane_x / 2.0) / tan(PI / 6.0))) / 2.0) / (SCALE * distance));
+	save_col = col_hight;
+	save_top = (int)fabs((myimg->plane_y / 2.0) - (col_hight / 2.0));
 	if (col_hight == 0)
 		col_hight = 1;
 //	printf("\ncolume hight:  %d\n", col_hight);
@@ -103,15 +105,15 @@ void	proector(double distance, t_img *myimg, int x, double angle)
 		col_hight = myimg->plane_y;
 	top_point = (myimg->plane_y / 2.0) - (col_hight / 2.0);
 	y_point = top_point;
-	k = RES / col_hight;
 	put_x_in_image(myimg);
 	col_hight = col_hight + top_point;
 	drowing_cell(x, y_point, myimg);
 	while (top_point < col_hight)
 	{
 		//printf("%d\n", take_color(myimg, top_point - y_point, k));
-		put_pixel(myimg, x, top_point, take_color(myimg, top_point - y_point, k));
+		put_pixel(myimg, x, top_point, take_color(myimg, save_top - y_point, RES / save_col));
 		top_point++;
+		save_top++;
 	}
 	drowing_floor(col_hight, x, myimg);
 	//exit(0);
