@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:35:10 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/08 13:25:26 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/08 19:34:37 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,11 @@ void	put_x_in_image(t_img *myimg)
 	else if (myimg->text->flag == 4)
 		myimg->text->square_coord = (int)(myimg->text->square_coord_hor / RES) * RES + RES - myimg->text->square_coord_hor;
 	else if (myimg->text->flag == 3)
-		myimg->text->square_coord = (int)(myimg->text->square_coord_vert / RES) * RES + RES - myimg->text->square_coord_vert;
-	else if (myimg->text->flag == 2)
 		myimg->text->square_coord = myimg->text->square_coord_vert - (int)(myimg->text->square_coord_vert / RES) * RES;
+//		myimg->text->square_coord = (int)(myimg->text->square_coord_vert / RES) * RES + RES - myimg->text->square_coord_vert;
+	else if (myimg->text->flag == 2)
+		myimg->text->square_coord = (int)(myimg->text->square_coord_vert / RES) * RES + RES - myimg->text->square_coord_vert;
+//		myimg->text->square_coord = myimg->text->square_coord_vert - (int)(myimg->text->square_coord_vert / RES) * RES;
 }
 
 void	drowing_cell(int x, int y_point, t_img *myimg)

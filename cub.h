@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 16:21:12 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/08 13:07:52 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/08 18:41:10 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,14 @@
 #include <mlx.h>
 #include <math.h>
 
+typedef	struct			s_one_spr
+{
+	struct s_one_spr	*next;
+	double				x;
+	double				y;
+	double				dist_to_sprite;
+}						t_one_spr;
+
 typedef struct	s_sprite
 {
 	double		*dis_mass;
@@ -42,6 +50,7 @@ typedef struct	s_sprite
 	int			width;
 	int			hight;
 	char		*path_to_sprite;
+	t_one_spr	*head;
 }				t_sprite;
 
 typedef struct	s_reader 
@@ -184,7 +193,7 @@ void		cleaner(t_img *myimg);
 void		put_pixel(t_img *data, int x, int y, int color);
 int			init_sprite(t_img *myimg);
 void		sprite_drawer(t_img *myimg);
-void		write_sprite(t_img *myimg);
+int			write_sprite(t_img *myimg);
 void		flood_fill(char **map, t_img *myimg, int x, int y);
 
 

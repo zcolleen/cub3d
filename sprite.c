@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 13:01:20 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/08 13:10:39 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/08 22:16:55 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 double	fix_angle(t_img *myimg, int col_hight)
 {
-	double trace;
+	double	trace;
+	double	angle;
 
 	trace = myimg->play->trace;
+	// angle = 
 	while (trace > 2 * PI)
 		trace = trace - 2 * PI;
 	while (trace <= 0)
@@ -81,7 +83,6 @@ void	draw_sprite_col(t_img *myimg, double save, int x, int col_hight)
 {
 	int		top_point;
 	int		color;
-	int i = 0;
 	double	save_col;
 	double	save_top;
 // 	double	remainder;
@@ -117,7 +118,7 @@ void	draw_sprite_col(t_img *myimg, double save, int x, int col_hight)
 //	exit (0);
 }
 
-void	draw_sprite(t_img *myimg, double trace, int col_hight)
+void	draw_sprite(t_img *myimg, double trace, int col_hight, t_one_spr *point)
 {
 	int		x;
 	double	right_point;
@@ -133,20 +134,52 @@ void	draw_sprite(t_img *myimg, double trace, int col_hight)
 		x = 0;
 	while (x < right_point)
 	{
-		if (myimg->sprite->dis_mass[x] > myimg->sprite->dist_to_sprite)
+		if (myimg->sprite->dis_mass[x] > point->dist_to_sprite)
 			draw_sprite_col(myimg, trace, x, col_hight);
 //		printf(" x =  %d||", (int)((x - myimg->sprite->image_x) * (RES / col_hight)));
 		x++;
 	}
 }
 
-void	write_sprite(t_img *myimg)
+t_one_spr	*new_elem(int i, int j)
+{
+	t_one_spr *new;
+
+	new = NULL;
+	if (!(new = (t_one_spr *)malloc(sizeof(t_one_spr))))
+		return (NULL);
+	new->y = i * RES + RES / 2.0 - 1;
+	new->x = j * RES + RES / 2.0 - 1;
+	new->next = NULL;
+	return (new);
+}
+
+int		put_elem_to_list(t_one_spr **head, int i, int j)
+{
+	t_one_spr *new;
+	
+	if (*head == NULL)
+	{
+		if ((*head = new_elem(i, j)) == NULL)
+			return (-1);
+		return (0);
+	}
+	else if (!(new = new_elem(i, j)))
+		return (-1);
+	new->next = *head;
+	*head = new;
+	return (0);
+}
+
+int		write_sprite(t_img *myimg)
 {
 	int i;
 	int j;
+	t_one_spr *head;
 
 	i = 0;
 	j = 0;
+	head = NULL;
 	while (myimg->reader->map[i] != NULL)
 	{
 		j = 0;
@@ -154,29 +187,86 @@ void	write_sprite(t_img *myimg)
 		{
 			if (myimg->reader->map[i][j] == '2')
 			{
-				myimg->sprite->y = i * RES + RES / 2.0 - 1;
-				myimg->sprite->x = j * RES + RES / 2.0 - 1;
+				if (put_elem_to_list(&head, i, j) == -1)
+					return (-1);
+//				myimg->sprite->y = i * RES + RES / 2.0 - 1;
+//				myimg->sprite->x = j * RES + RES / 2.0 - 1;
 			}
 			j++;
 		}
 		i++;
 	}
+	myimg->sprite->head = head;
+	return (0);
 }
 
-void	sprite_trace(t_img *myimg)
+void	sprite_trace(t_one_spr *point, t_img *myimg)
 {
-	if ((myimg->sprite->trace = atan((myimg->sprite->y - myimg->play->y) /
-	(myimg->sprite->x - myimg->play->x))) < 0)
+	if ((myimg->sprite->trace = atan((point->y - myimg->play->y) /
+	(point->x - myimg->play->x))) < 0)
 	{
-		if ((myimg->sprite->y - myimg->play->y) < 0)
+		if ((point->y - myimg->play->y) < 0)
 			myimg->sprite->trace =  myimg->sprite->trace + 2.0 * PI;
 		else 
 			myimg->sprite->trace =  myimg->sprite->trace + PI;
 	}
 	else
 	{
-		if ((myimg->sprite->x - myimg->play->x) < 0)
+		if ((point->x - myimg->play->x) < 0)
 			myimg->sprite->trace = myimg->sprite->trace + PI;
+	}
+}
+
+/*void	swap(t_one_spr **save, t_one_spr **point)
+{
+	(*save)->next = (*point)->next;
+	(*point)->next = (*point)->next->next;
+	(*save)->next->next = *point;
+}
+*/
+void	swap(t_one_spr *first, t_one_spr *second, t_one_spr **head)
+{
+	t_one_spr *tmp;
+
+	tmp = *head;
+	if (first == *head)
+	{
+		first->next = second->next;
+		second->next = *head;
+		*head = second;
+	}
+	else
+	{
+		while (tmp->next != first)
+			tmp = tmp->next;
+		tmp->next = first->next;
+		first->next = second->next;	
+		second->next = first;	
+	}
+}
+
+void	list_sort(t_one_spr **head)
+{
+	t_one_spr *tmp;
+	int 		c;	
+
+	c = 0;
+	tmp = *head;
+	if (*head == NULL || (*head)->next == NULL)
+		return ;
+	while (c == 0)
+	{
+		tmp = *head;
+		c = 1;
+		while (tmp != NULL && tmp->next != NULL)
+		{
+			if (tmp->dist_to_sprite < tmp->next->dist_to_sprite)
+			{
+				swap(tmp, tmp->next, head);
+				c = 0;
+			}
+			tmp = tmp->next;
+		}
 	}
 }
 
@@ -185,18 +275,31 @@ void	sprite_drawer(t_img *myimg)
 	double	trace;
 	int		col_hight;
 	double	proj_dist;
+	t_one_spr *point;
+	int		counter;
 
-	myimg->sprite->dist_to_sprite = sqrt(pow((myimg->play->x - myimg->sprite->x), 2.0) +
-	pow((myimg->play->y - myimg->sprite->y), 2.0));
-//	printf("%f\n", myimg->sprite->dist_to_sprite);
-//	exit (0);
+	counter = 0;
 	proj_dist = (myimg->plane_x / 2.0) / tan(PI / 6.0);
-	col_hight = (int)((((myimg->plane_y * proj_dist)) / 2.0) / (SCALE * myimg->sprite->dist_to_sprite));
-	sprite_trace(myimg);
-	trace = fix_angle(myimg, col_hight);
-//	printf("trace : %f\n", trace * 180.0 / PI);
-//myimg->sprite->dis_mass[(int)(trace *  myimg->plane_x / (PI / 3.0))] > myimg->sprite->dist_to_sprite
-//	printf("%f\n", myimg->sprite->dis_mass[(int)((trace) *  myimg->plane_x / (PI / 3.0))]);
-	if (trace != -1)
-		draw_sprite(myimg, trace, col_hight);
+	point = myimg->sprite->head;
+	while (point != NULL)
+	{//first most dist
+		point->dist_to_sprite = sqrt(pow((myimg->play->x - point->x), 2.0) +
+		pow((myimg->play->y - point->y), 2.0));
+//		printf("x : %f y : %f\n", point->x, point->y);
+//printf("%f\n", point->dist_to_sprite);
+		point = point->next;
+		counter++;
+	}
+//	exit (0);
+	list_sort(&(myimg->sprite->head));
+	point = myimg->sprite->head;
+	while (point != NULL)
+	{
+		col_hight = (int)((((myimg->plane_y * proj_dist)) / 2.0) / (SCALE * point->dist_to_sprite));
+		sprite_trace(point, myimg);
+		trace = fix_angle(myimg, col_hight);
+		if (trace != -1)
+			draw_sprite(myimg, trace, col_hight, point);
+		point = point->next;
+	}
 }
