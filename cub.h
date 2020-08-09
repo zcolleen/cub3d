@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 16:21:12 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/08 18:41:10 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/09 18:12:01 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ typedef struct	s_img
 
 double		casting(char **map, t_img *myimg, double trace, double save_angle);
 void		proector(double distance, t_img *myimg, int x, double angle);
-int			init(char **map, t_img *myimg);
+int			init(char **map, t_img *myimg, int sw);
 void		reader(t_img *myimg, char **argv);
 void		cleaner(t_img *myimg);
 void		put_pixel(t_img *data, int x, int y, int color);
@@ -195,7 +195,12 @@ int			init_sprite(t_img *myimg);
 void		sprite_drawer(t_img *myimg);
 int			write_sprite(t_img *myimg);
 void		flood_fill(char **map, t_img *myimg, int x, int y);
-
+int			hooker(int keycode, t_img *myimg);
+double		starting_trace(t_img *myimg); 
+int			save_textures(t_img *myimg);
+int			save_f_c(t_img *myimg);
+int			drawer(t_img *myimg);
+int			starter_bmp(char **argv);
 
 
 #endif

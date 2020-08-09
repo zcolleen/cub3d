@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 13:01:20 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/08 22:16:55 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/08 22:41:21 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ double	fix_angle(t_img *myimg, int col_hight)
 	double	angle;
 
 	trace = myimg->play->trace;
-	// angle = 
 	while (trace > 2 * PI)
 		trace = trace - 2 * PI;
 	while (trace <= 0)

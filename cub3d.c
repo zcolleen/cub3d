@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 16:15:58 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/05 18:29:39 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/09 18:12:17 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int		starter(char **argv)//начало кода
 	// if (!(map = save_map(argv, myimg)))
 	// 	return (-1);
 	reader(myimg, argv);
-	init(myimg->reader->map, myimg);
+	init(myimg->reader->map, myimg, 0);
 	if (init_sprite(myimg) == -1)
 	 	return (-1);
 	write_sprite(myimg);
@@ -185,9 +185,54 @@ int		hooker(int keycode, t_img *myimg)
 	return (0);
 }
 
+void	parce_argv(char **argv)
+{
+	int fd;
+	int i;
+	
+	fd = 0;
+	i = 0;
+	if ((fd = open(argv[1], O_RDONLY)) < 0)
+	{
+		perror("Error");
+		exit(1);
+	}
+	close(fd);
+	while (argv[1][i] != '\0')
+		i++;
+	if (argv[1][i - 1] != 'b' || argv[1][i - 2] != 'u' || argv[1][i - 3] != 'c' || argv[1][i - 4] != '.')
+	{
+		ft_putstr_fd("Error:\nnot a valid format\n", 1);
+		exit(0);
+	}
+}
+
+void	check_save(char **argv)
+{
+	if (argv[2][0] != '-' || argv[2][1] != '-' || argv[2][2] != 's' || argv[2][3] != 'a' ||
+	argv[2][4] != 'v' || argv[2][5] != 'e' || argv[2][6] != '\0')
+	{
+		ft_putstr_fd("Error:\nnot a valid argument\n", 1);
+		exit(0);
+	}
+}
+
 int		main(int argc, char **argv)
 {
 	if (argc == 2)
+	{
+		parce_argv(argv);
 		starter(argv);
-	return (0);
+	}
+	if (argc == 3)
+	{
+		check_save(argv);
+		parce_argv(argv);
+		starter_bmp(argv);
+	}
+	else
+	{
+		ft_putstr_fd("Error:\nwrong number of arguments\n", 1);
+		exit(0);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 14:47:36 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/05 13:32:11 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/09 15:45:21 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,13 @@ void	search_for_player(char **map, t_img *data)
 	data->play->max_y = i;
 }
 
-void	window_init(t_img *myimg)
+void	window_init(t_img *myimg, int sw)
 {
 	myimg->plane_x = myimg->reader->r_x;
 	myimg->plane_y = myimg->reader->r_y;
 	myimg->mlx_ptr = mlx_init();
-	myimg->mlx_win = mlx_new_window(myimg->mlx_ptr, myimg->plane_x, myimg->plane_y, "cub3d");
+	if (sw == 0)
+		myimg->mlx_win = mlx_new_window(myimg->mlx_ptr, myimg->plane_x, myimg->plane_y, "cub3d");
 	myimg->mlx_img = mlx_new_image(myimg->mlx_ptr, myimg->plane_x, myimg->plane_y);
 	myimg->addr = mlx_get_data_addr(myimg->mlx_img, &(myimg->bits_per_pixel),
 	&(myimg->line_length), &(myimg->endian));
@@ -110,7 +111,7 @@ void	flood_fill(char **map, t_img *myimg, int x, int y)
 
 
 
-int		init(char **map, t_img *myimg)
+int		init(char **map, t_img *myimg, int sw)
 {
 	t_play	*play;
 	int		*max_x;
@@ -131,6 +132,6 @@ int		init(char **map, t_img *myimg)
 	myimg->play->max_x = max_x;
 	// printf("\n%d\n%d\n", myimg->play->i, myimg->play->j);
 //	flood_fill(map, myimg, myimg->play->j, myimg->play->i);
-	window_init(myimg);
+	window_init(myimg, sw);
 	return (0);
 }

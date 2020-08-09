@@ -9,7 +9,7 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "/Users/zcolleen/Desktop/cub3d/a.out",
-			"args": ["test.cub"],
+			"args": ["notok.txt"],
 			"stopAtEntry": false,
 			"cwd": "/Users/zcolleen/Desktop/cub3d/",
 			"environment": [],
