@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:35:10 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/08 19:34:37 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/10 14:06:03 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ void	proector(double distance, t_img *myimg, int x, double angle)
 	save_top = (int)fabs((myimg->plane_y / 2.0) - (col_hight / 2.0));
 	if (col_hight == 0)
 		col_hight = 1;
-//	printf("\ncolume hight:  %d\n", col_hight);
 	if (col_hight >= myimg->plane_y)
 		col_hight = myimg->plane_y;
 	top_point = (myimg->plane_y / 2.0) - (col_hight / 2.0);
@@ -112,13 +111,9 @@ void	proector(double distance, t_img *myimg, int x, double angle)
 	drowing_cell(x, y_point, myimg);
 	while (top_point < col_hight)
 	{
-		//printf("%d\n", take_color(myimg, top_point - y_point, k));
 		put_pixel(myimg, x, top_point, take_color(myimg, save_top - y_point, RES / save_col));
 		top_point++;
 		save_top++;
 	}
 	drowing_floor(col_hight, x, myimg);
-	//exit(0);
-	// mlx_put_image_to_window(myimg->mlx_ptr, myimg->mlx_win, myimg->mlx_img, 0, 0);
-	// mlx_loop(myimg->mlx_ptr);
 }

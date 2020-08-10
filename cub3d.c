@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 16:15:58 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/09 18:12:17 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/10 13:45:19 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 int		hooker(int keycode, t_img *myimg);
 int		drawer(t_img *myimg);
+void	all_free(t_img *myimg);
+void	list_map_clear(t_img *myimg);
+//int		red_cross(int keycode, t_img *myimg);
+int		red_cross(t_img *myimg);
 
 
 double	starting_trace(t_img *myimg) 
@@ -121,8 +125,15 @@ int		starter(char **argv)//начало кода
 	drawer(myimg);
 	mlx_put_image_to_window(myimg->mlx_ptr, myimg->mlx_win, myimg->mlx_img, 0, 0);
 	mlx_hook(myimg->mlx_win, 2, 0L, hooker, myimg);
+	mlx_hook(myimg->mlx_win, 17, 0L, red_cross, myimg);
 	mlx_loop(myimg->mlx_ptr);
 	return (0);
+}
+
+int		red_cross(t_img *myimg)
+{
+	all_free(myimg);
+	return(0);
 }
 
 int		drawer(t_img *myimg)
@@ -148,6 +159,53 @@ int		drawer(t_img *myimg)
 	}
 	sprite_drawer(myimg);
 	return (0);
+}
+
+void	list_map_clear(t_img *myimg)
+{
+	t_one_spr	*tmp;
+	t_one_spr	*save;
+	int			i;
+
+	i = 0;
+	tmp = myimg->sprite->head;
+	save = tmp;
+	while (tmp != NULL)
+	{
+		tmp = tmp->next;
+		free(save);
+		save = tmp;
+	}
+	while (myimg->map[i] != NULL)
+	{
+		free(myimg->map[i]);
+		i++;
+	}
+	free(myimg->map);
+}
+
+void	all_free(t_img *myimg)
+{
+	mlx_destroy_image(myimg->mlx_ptr, myimg->mlx_img);
+	free(myimg->play->max_x);
+	free(myimg->play);
+	free(myimg->text->path_to_east);
+	free(myimg->text->path_to_north);
+	free(myimg->text->path_to_south);
+	free(myimg->text->path_to_west);
+	free(myimg->text);
+	free(myimg->east);
+	free(myimg->south);
+	free(myimg->west);
+	free(myimg->north);
+	free(myimg->f_c);
+	free(myimg->reader);
+	free(myimg->sprite->dis_mass);
+	free(myimg->sprite->path_to_sprite);
+	free(myimg->sprite);
+	list_map_clear(myimg);
+	free(myimg);
+	exit(0);
 }
 
 int		hooker(int keycode, t_img *myimg)
@@ -180,6 +238,8 @@ int		hooker(int keycode, t_img *myimg)
 		myimg->play->x = myimg->play->x - 3 * cos(myimg->play->trace + PI / 6.0 - PI / 2.0);
 		myimg->play->y = myimg->play->y - 3 * sin(myimg->play->trace + PI / 6.0 - PI / 2.0);				
 	}
+	if (keycode == 53)
+		all_free(myimg);
 	drawer(myimg);
 	mlx_put_image_to_window(myimg->mlx_ptr, myimg->mlx_win, myimg->mlx_img, 0, 0);
 	return (0);

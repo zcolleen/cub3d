@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 13:01:20 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/08 22:41:21 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/10 13:26:09 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ t_one_spr	*new_elem(int i, int j)
 int		put_elem_to_list(t_one_spr **head, int i, int j)
 {
 	t_one_spr *new;
-	
+
 	if (*head == NULL)
 	{
 		if ((*head = new_elem(i, j)) == NULL)
