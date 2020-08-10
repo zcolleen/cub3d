@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/09 15:35:05 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/10 16:50:06 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/10 19:51:02 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	split_bytes(int size, unsigned char *header)
 
 void	header(t_img *myimg, unsigned int image_size, int fd)
 {
-	unsigned char   header[54];
-	unsigned        int i;
+	unsigned char	header[54];
+	unsigned int	i;
 
 	i = 0;
 	while (i++ < 54)
@@ -44,7 +44,8 @@ int		*get_color_bmp(t_img *data, int y, int x)
 {
 	int *dst;
 
-	dst = (int *)(data->addr + ((int)data->plane_y - y) * data->line_length + x * (data->bits_per_pixel / 8));
+	dst = (int *)(data->addr + ((int)data->plane_y - y) * data->line_length +
+	x * (data->bits_per_pixel / 8));
 	return (dst);
 }
 
@@ -69,8 +70,8 @@ void	save_image(t_img *myimg, int fd)
 
 void	saver_bmp(t_img *myimg)
 {
-	int                 fd;
-	unsigned int image_size;
+	int				fd;
+	unsigned int	image_size;
 
 	image_size = myimg->plane_x * myimg->plane_y * 4 + 54;
 	fd = open("save.bmp", O_WRONLY | O_CREAT | O_TRUNC | O_APPEND, 0666);
@@ -81,13 +82,13 @@ void	saver_bmp(t_img *myimg)
 int		starter_bmp(char **argv)
 {
 	t_img *myimg;
-	
+
 	if (!(myimg = (t_img *)malloc(sizeof(t_img))))
 		return (-1);
 	reader(myimg, argv);
 	init(myimg->reader->map, myimg, 0);
 	if (init_sprite(myimg) == -1)
-	 	return (-1);
+		return (-1);
 	write_sprite(myimg);
 	flood_fill(myimg->reader->map, myimg, myimg->play->j, myimg->play->i);
 	myimg->play->trace = starting_trace(myimg);
@@ -97,5 +98,5 @@ int		starter_bmp(char **argv)
 	drawer(myimg);
 	saver_bmp(myimg);
 	all_free(myimg);
-	return (0);  
+	return (0);
 }

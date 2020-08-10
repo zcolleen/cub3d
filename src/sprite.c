@@ -6,13 +6,13 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 13:01:20 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/10 17:30:50 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/10 20:26:41 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-double	fix_angle(t_img *myimg, int col_hight)
+double		fix_angle(t_img *myimg, int col_hight)
 {
 	double	trace;
 
@@ -21,20 +21,26 @@ double	fix_angle(t_img *myimg, int col_hight)
 		trace = trace - 2 * PI;
 	while (trace <= 0)
 		trace = trace + 2 * PI;
-	if ((((myimg->sprite->trace - trace + (PI / 3.0 / myimg->plane_x) * (col_hight)) > 0) &&
-	(myimg->sprite->trace - trace -  (PI / 3.0 / myimg->plane_x) * (col_hight)) < PI / 3.0) ||
-	(trace - myimg->sprite->trace +  (PI / 3.0 / myimg->plane_x) * (col_hight)) > 5.0 * PI / 6.0)
+	if ((((myimg->sprite->trace - trace +
+	(PI / 3.0 / myimg->plane_x) * (col_hight)) > 0) &&
+	(myimg->sprite->trace - trace -
+	(PI / 3.0 / myimg->plane_x) * (col_hight)) < PI / 3.0) ||
+	(trace - myimg->sprite->trace +
+	(PI / 3.0 / myimg->plane_x) * (col_hight)) > 5.0 * PI / 6.0)
 	{
-		if ((trace - myimg->sprite->trace +  (PI / 3.0 / myimg->plane_x) * (col_hight)) > 5.0 * PI / 6.0)
-			return (2.0 * PI - trace + myimg->sprite->trace - (PI / 3.0 / myimg->plane_x) * (col_hight / 2.0));
+		if ((trace - myimg->sprite->trace +
+		(PI / 3.0 / myimg->plane_x) * (col_hight)) > 5.0 * PI / 6.0)
+			return (2.0 * PI - trace + myimg->sprite->trace -
+			(PI / 3.0 / myimg->plane_x) * (col_hight / 2.0));
 		else
-			return (myimg->sprite->trace - trace - (PI / 3.0 / myimg->plane_x) * (col_hight / 2.0));
+			return (myimg->sprite->trace - trace -
+			(PI / 3.0 / myimg->plane_x) * (col_hight / 2.0));
 	}
 	else
 		return (-1);
 }
 
-int		init_sprite(t_img *myimg)
+int			init_sprite(t_img *myimg)
 {
 	t_sprite *sprite;
 
@@ -44,24 +50,29 @@ int		init_sprite(t_img *myimg)
 		return (-1);
 	myimg->sprite = sprite;
 	myimg->sprite->path_to_sprite = myimg->reader->path_to_sprite;
-	myimg->sprite->img = mlx_xpm_file_to_image(myimg->mlx_ptr, myimg->sprite->path_to_sprite, &(myimg->sprite->width), &(myimg->sprite->hight));
-	myimg->sprite->addr = mlx_get_data_addr(myimg->sprite->img, &(myimg->sprite->bits_per_pixel), &(myimg->sprite->line_length), &(myimg->sprite->endian));
+	myimg->sprite->img = mlx_xpm_file_to_image(myimg->mlx_ptr,
+	myimg->sprite->path_to_sprite,
+	&(myimg->sprite->width), &(myimg->sprite->hight));
+	myimg->sprite->addr = mlx_get_data_addr(myimg->sprite->img,
+	&(myimg->sprite->bits_per_pixel), &(myimg->sprite->line_length),
+	&(myimg->sprite->endian));
 	return (0);
 }
 
-
-int		take_color_from_sprite(t_img *myimg, int x, int top_point, int col_hight)
+int			take_color_from_sprite(t_img *myimg, int x,
+int top_point, int col_hight)
 {
-	int		*data;
-	int 	y;
+	int	*data;
+	int y;
 
 	x = (int)((x - myimg->sprite->image_x) * (RES / col_hight));
 	y = (int)((top_point - myimg->sprite->image_y) * (RES / col_hight));
-	data = (int*)(myimg->sprite->addr + y * myimg->sprite->line_length + x * (myimg->sprite->bits_per_pixel / 8));
+	data = (int*)(myimg->sprite->addr + y * myimg->sprite->line_length +
+	x * (myimg->sprite->bits_per_pixel / 8));
 	return (*data);
 }
 
-void	draw_sprite_col(t_img *myimg, int x, int col_hight)
+void		draw_sprite_col(t_img *myimg, int x, int col_hight)
 {
 	int		top_point;
 	int		color;
@@ -84,7 +95,8 @@ void	draw_sprite_col(t_img *myimg, int x, int col_hight)
 	}
 }
 
-void	draw_sprite(t_img *myimg, double trace, int col_hight, t_one_spr *point)
+void		draw_sprite(t_img *myimg, double trace,
+int col_hight, t_one_spr *point)
 {
 	int		x;
 	double	right_point;
@@ -117,7 +129,7 @@ t_one_spr	*new_elem(int i, int j)
 	return (new);
 }
 
-int		put_elem_to_list(t_one_spr **head, int i, int j)
+int			put_elem_to_list(t_one_spr **head, int i, int j)
 {
 	t_one_spr *new;
 
@@ -134,11 +146,11 @@ int		put_elem_to_list(t_one_spr **head, int i, int j)
 	return (0);
 }
 
-int		write_sprite(t_img *myimg)
+int			write_sprite(t_img *myimg)
 {
-	int i;
-	int j;
-	t_one_spr *head;
+	int			i;
+	int			j;
+	t_one_spr	*head;
 
 	i = 0;
 	j = 0;
@@ -161,15 +173,15 @@ int		write_sprite(t_img *myimg)
 	return (0);
 }
 
-void	sprite_trace(t_one_spr *point, t_img *myimg)
+void		sprite_trace(t_one_spr *point, t_img *myimg)
 {
 	if ((myimg->sprite->trace = atan((point->y - myimg->play->y) /
 	(point->x - myimg->play->x))) < 0)
 	{
 		if ((point->y - myimg->play->y) < 0)
-			myimg->sprite->trace =  myimg->sprite->trace + 2.0 * PI;
-		else 
-			myimg->sprite->trace =  myimg->sprite->trace + PI;
+			myimg->sprite->trace = myimg->sprite->trace + 2.0 * PI;
+		else
+			myimg->sprite->trace = myimg->sprite->trace + PI;
 	}
 	else
 	{
@@ -178,7 +190,7 @@ void	sprite_trace(t_one_spr *point, t_img *myimg)
 	}
 }
 
-void	swap(t_one_spr *first, t_one_spr *second, t_one_spr **head)
+void		swap(t_one_spr *first, t_one_spr *second, t_one_spr **head)
 {
 	t_one_spr *tmp;
 
@@ -194,15 +206,15 @@ void	swap(t_one_spr *first, t_one_spr *second, t_one_spr **head)
 		while (tmp->next != first)
 			tmp = tmp->next;
 		tmp->next = first->next;
-		first->next = second->next;	
-		second->next = first;	
+		first->next = second->next;
+		second->next = first;
 	}
 }
 
-void	list_sort(t_one_spr **head)
+void		list_sort(t_one_spr **head)
 {
-	t_one_spr *tmp;
-	int 		c;	
+	t_one_spr	*tmp;
+	int			c;
 
 	c = 0;
 	tmp = *head;
@@ -224,13 +236,13 @@ void	list_sort(t_one_spr **head)
 	}
 }
 
-void	sprite_drawer(t_img *myimg)
+void		sprite_drawer(t_img *myimg)
 {
-	double	trace;
-	int		col_hight;
-	double	proj_dist;
-	t_one_spr *point;
-	int		counter;
+	double		trace;
+	int			col_hight;
+	double		proj_dist;
+	t_one_spr	*point;
+	int			counter;
 
 	counter = 0;
 	proj_dist = (myimg->plane_x / 2.0) / tan(PI / 6.0);
@@ -246,7 +258,8 @@ void	sprite_drawer(t_img *myimg)
 	point = myimg->sprite->head;
 	while (point != NULL)
 	{
-		col_hight = (int)((((myimg->plane_y * proj_dist)) / 2.0) / (SCALE * point->dist_to_sprite));
+		col_hight = (int)((((myimg->plane_y * proj_dist)) / 2.0)
+		/ (SCALE * point->dist_to_sprite));
 		sprite_trace(point, myimg);
 		trace = fix_angle(myimg, col_hight);
 		if (trace != -1)

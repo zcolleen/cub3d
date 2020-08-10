@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 16:21:12 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/10 17:26:31 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/10 20:12:29 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,7 @@ int			save_f_c(t_img *myimg);
 int			drawer(t_img *myimg);
 int			starter_bmp(char **argv);
 void		all_free(t_img *myimg);
+void		cleaner(t_img *myimg);
 
 
 #endif

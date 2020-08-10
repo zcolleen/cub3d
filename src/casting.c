@@ -6,13 +6,13 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 19:18:09 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/10 19:30:26 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/10 19:46:59 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-int		intersect(char **map, double x, double y, t_img *myimg)
+int			intersect(char **map, double x, double y, t_img *myimg)
 {
 	int a;
 	int b;
@@ -45,32 +45,32 @@ double		angle(double trace, int sw)
 	}
 }
 
-double	trace_vert(char **map, t_img *myimg, double trace)
+double		trace_vert(char **map, t_img *myimg, double trace)
 {
-	double Ax;
-	double Ay;
-	double Xa;
-	double Ya;
+	double ax;
+	double ay;
+	double xa;
+	double ya;
 
 	if (((trace >= 3.0 * PI / 2.0) && (trace <= 2.0 * PI)) ||
 	((trace <= PI / 2.0) && (trace >= 0)))
-		Ax = ((int)(myimg->play->x / RES)) * RES + RES;
+		ax = ((int)(myimg->play->x / RES)) * RES + RES;
 	else
-		Ax = ((int)(myimg->play->x / RES)) * RES - 0.0001;
-	Ay = myimg->play->y - (myimg->play->x - Ax) * tan(trace);
-	Xa = angle(trace, 2) * RES;
-	Ya = angle(trace, 2) * RES * tan(trace);
-	while (intersect(map, Ax, Ay, myimg) != 1)
+		ax = ((int)(myimg->play->x / RES)) * RES - 0.0001;
+	ay = myimg->play->y - (myimg->play->x - ax) * tan(trace);
+	xa = angle(trace, 2) * RES;
+	ya = angle(trace, 2) * RES * tan(trace);
+	while (intersect(map, ax, ay, myimg) != 1)
 	{
-		Ax = Ax + Xa;
-		Ay = Ay + Ya;
+		ax = ax + xa;
+		ay = ay + ya;
 	}
-	myimg->text->square_coord_vert = Ay;
-	return (sqrt((pow((myimg->play->x - Ax), 2.0) +
-	pow((myimg->play->y - Ay), 2.0))));
+	myimg->text->square_coord_vert = ay;
+	return (sqrt((pow((myimg->play->x - ax), 2.0) +
+	pow((myimg->play->y - ay), 2.0))));
 }
 
-double	trace_hor(char **map, t_img *myimg, double trace)
+double		trace_hor(char **map, t_img *myimg, double trace)
 {
 	double ax;
 	double ay;
@@ -90,7 +90,7 @@ double	trace_hor(char **map, t_img *myimg, double trace)
 		ay = ay + ya;
 	}
 	myimg->text->square_coord_hor = ax;
-	return(sqrt((pow((myimg->play->x - ax), 2.0) +
+	return (sqrt((pow((myimg->play->x - ax), 2.0) +
 	pow((myimg->play->y - ay), 2.0))));
 }
 
@@ -121,31 +121,17 @@ void		switch_texture(t_img *myimg, double trace, int sw)
 	}
 }
 
-double		casting(char **map, t_img *myimg, double trace, double save_angle)
+double		dist_compare(char **map, t_img *myimg, double trace, double save)
 {
-	double	distance1;
-	double	distance2;
-	double	save;
+	double distance1;
+	double distance2;
 
-	save = save_angle - PI / 6.0 - trace;
-	while (save >= 2.0 * PI)
-		save = save - 2.0 * PI;
-	while (save < 0)
-		save = save + 2.0 * PI;
-	while (trace < 0)
-		trace = trace + 2.0 * PI;
-	while (trace >= 2 * PI)
-		trace = trace - 2 * PI;
-	if (undefault_angle(trace) == 1)
-	{
-		distance1 = trace_hor(map, myimg, trace) * fabs(cos(save));
+	if ((undefault_angle(trace) == 1) &&
+	(distance1 = trace_hor(map, myimg, trace) * fabs(cos(save))))
 		switch_texture(myimg, trace, 1);
-	}
-	else if (undefault_angle(trace) == 2)
-	{
-		distance1 = trace_vert(map, myimg, trace) * fabs(cos(save));
+	else if ((undefault_angle(trace) == 2) &&
+	(distance1 = trace_vert(map, myimg, trace) * fabs(cos(save))))
 		switch_texture(myimg, trace, 0);
-	}
 	else if ((distance1 = trace_vert(map, myimg, trace)) >=
 	(distance2 = trace_hor(map, myimg, trace)))
 	{
@@ -158,4 +144,20 @@ double		casting(char **map, t_img *myimg, double trace, double save_angle)
 		switch_texture(myimg, trace, 1);
 	}
 	return (distance1);
+}
+
+double		casting(char **map, t_img *myimg, double trace, double save_angle)
+{
+	double	save;
+
+	save = save_angle - PI / 6.0 - trace;
+	while (save >= 2.0 * PI)
+		save = save - 2.0 * PI;
+	while (save < 0)
+		save = save + 2.0 * PI;
+	while (trace < 0)
+		trace = trace + 2.0 * PI;
+	while (trace >= 2 * PI)
+		trace = trace - 2 * PI;
+	return (dist_compare(map, myimg, trace, save));
 }

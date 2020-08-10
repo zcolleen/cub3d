@@ -6,18 +6,16 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/30 19:15:29 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/10 17:28:47 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/10 20:16:45 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-void	cleaner(t_img *myimg);
-
 void	map_dup(char **map, int fd, int skip, int j, t_img *myimg)
 {
-	char *line;
-	int i;
+	char	*line;
+	int		i;
 
 	i = 0;
 	while (skip-- > 0)
@@ -46,7 +44,7 @@ void	map_dup(char **map, int fd, int skip, int j, t_img *myimg)
 void	alloc_map(char **argv, int j, t_img *myimg, int i, int fd)
 {
 	char **map;
-	
+
 	if (!(map = (char **)malloc(sizeof(char *) * (j + 1))))
 	{
 		cleaner(myimg);
@@ -64,7 +62,6 @@ void	alloc_map(char **argv, int j, t_img *myimg, int i, int fd)
 	fd = open(argv[1], O_RDONLY);
 	map_dup(map, fd, i, j, myimg);
 }
-
 
 void	cleaner(t_img *myimg)
 {
@@ -158,7 +155,7 @@ int		parcer(char *line, t_img *myimg, char c, int sw)
 	while (line[i] == ' ')
 		i++;
 	if (line[i] == '.' && line[i + 1] == '/')
-		return(allocator(line + i, myimg, c, sw));
+		return (allocator(line + i, myimg, c, sw));
 	else
 	{
 		ft_putstr_fd("Error:\nwrong path\n", 1);
@@ -210,23 +207,23 @@ int		check_color(int i)
 
 int		filler(char *line, int *i, int *j, int *k)
 {
-		if ((check_color(*i = ft_atoi(line))) == -1)
-			return (-1);
-		line = line + scip_digit(line);
-		if (check_line_f_c(line) == 0)
-			line++;
-		else
-			return (-1);
-		if ((check_color(*j = ft_atoi(line))) == -1)
-			return (-1);
-		line = line + scip_digit(line);
-		if (check_line_f_c(line) == 0)
-			line++;
-		else
-			return (-1);
-		if ((check_color(*k = ft_atoi(line))) == -1)
-			return (-1);
-		return (0);
+	if ((check_color(*i = ft_atoi(line))) == -1)
+		return (-1);
+	line = line + scip_digit(line);
+	if (check_line_f_c(line) == 0)
+		line++;
+	else
+		return (-1);
+	if ((check_color(*j = ft_atoi(line))) == -1)
+		return (-1);
+	line = line + scip_digit(line);
+	if (check_line_f_c(line) == 0)
+		line++;
+	else
+		return (-1);
+	if ((check_color(*k = ft_atoi(line))) == -1)
+		return (-1);
+	return (0);
 }
 
 int		allocator_f_c(char *line, t_img *myimg, char c)

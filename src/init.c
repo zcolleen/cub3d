@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 14:47:36 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/10 19:06:02 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/10 20:11:07 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,10 @@ void	window_init(t_img *myimg, int sw)
 	myimg->plane_y = myimg->reader->r_y;
 	myimg->mlx_ptr = mlx_init();
 	if (sw == 0)
-		myimg->mlx_win = mlx_new_window(myimg->mlx_ptr, myimg->plane_x, myimg->plane_y, "cub3d");
-	myimg->mlx_img = mlx_new_image(myimg->mlx_ptr, myimg->plane_x, myimg->plane_y);
+		myimg->mlx_win = mlx_new_window(myimg->mlx_ptr,
+		myimg->plane_x, myimg->plane_y, "cub3d");
+	myimg->mlx_img = mlx_new_image(myimg->mlx_ptr,
+	myimg->plane_x, myimg->plane_y);
 	myimg->addr = mlx_get_data_addr(myimg->mlx_img, &(myimg->bits_per_pixel),
 	&(myimg->line_length), &(myimg->endian));
 }
@@ -112,8 +114,6 @@ void	flood_fill(char **map, t_img *myimg, int x, int y)
 	flood_fill(map, myimg, x, y + 1);
 	flood_fill(map, myimg, x, y - 1);
 }
-
-
 
 int		init(char **map, t_img *myimg, int sw)
 {
