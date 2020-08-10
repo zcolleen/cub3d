@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 16:21:12 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/10 16:10:39 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/10 17:26:31 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 #include <fcntl.h>
 #include "./libft/libft.h"
 #include <stdio.h>
-//#include <mlx.h>
-#include "minilibx/mlx.h"
+#include <mlx.h>
+//#include "mlx/mlx.h"
 #include <math.h>
 
 typedef	struct			s_one_spr
@@ -187,7 +187,7 @@ typedef struct	s_img
 }				t_img;
 
 double		casting(char **map, t_img *myimg, double trace, double save_angle);
-void		proector(double distance, t_img *myimg, int x, double angle);
+void		proector(double distance, t_img *myimg, int x);
 int			init(char **map, t_img *myimg, int sw);
 void		reader(t_img *myimg, char **argv);
 void		cleaner(t_img *myimg);

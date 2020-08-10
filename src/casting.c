@@ -6,11 +6,11 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 19:18:09 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/10 14:10:32 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/10 19:30:26 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
 int		intersect(char **map, double x, double y, t_img *myimg)
 {
@@ -56,7 +56,7 @@ double	trace_vert(char **map, t_img *myimg, double trace)
 	((trace <= PI / 2.0) && (trace >= 0)))
 		Ax = ((int)(myimg->play->x / RES)) * RES + RES;
 	else
-		Ax = ((int)(myimg->play->x / RES)) * RES - 0.00001;
+		Ax = ((int)(myimg->play->x / RES)) * RES - 0.0001;
 	Ay = myimg->play->y - (myimg->play->x - Ax) * tan(trace);
 	Xa = angle(trace, 2) * RES;
 	Ya = angle(trace, 2) * RES * tan(trace);
@@ -72,26 +72,26 @@ double	trace_vert(char **map, t_img *myimg, double trace)
 
 double	trace_hor(char **map, t_img *myimg, double trace)
 {
-	double Ax;
-	double Ay;
-	double Xa;
-	double Ya;
+	double ax;
+	double ay;
+	double xa;
+	double ya;
 
 	if (trace >= PI && trace <= 2 * PI)
-		Ay = ((int)((myimg->play->y / RES)) * RES) - 0.00001;
+		ay = ((int)((myimg->play->y / RES)) * RES) - 0.0001;
 	else
-		Ay = ((int)((myimg->play->y / RES)) * RES) + RES;
-	Xa = angle(trace, 1) * RES / tan(trace);
-	Ya = angle(trace, 1) * RES;
-	Ax = myimg->play->x - (myimg->play->y - Ay) / tan(trace);
-	while ((intersect(map, Ax, Ay, myimg)) != 1)
+		ay = ((int)((myimg->play->y / RES)) * RES) + RES;
+	xa = angle(trace, 1) * RES / tan(trace);
+	ya = angle(trace, 1) * RES;
+	ax = myimg->play->x - (myimg->play->y - ay) / tan(trace);
+	while ((intersect(map, ax, ay, myimg)) != 1)
 	{
-		Ax = Ax + Xa;
-		Ay = Ay + Ya;
+		ax = ax + xa;
+		ay = ay + ya;
 	}
-	myimg->text->square_coord_hor = Ax;
-	return(sqrt((pow((myimg->play->x - Ax), 2.0) +
-	pow((myimg->play->y - Ay), 2.0))));
+	myimg->text->square_coord_hor = ax;
+	return(sqrt((pow((myimg->play->x - ax), 2.0) +
+	pow((myimg->play->y - ay), 2.0))));
 }
 
 int			undefault_angle(double trace)

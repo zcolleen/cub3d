@@ -6,11 +6,11 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 14:47:36 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/10 14:10:41 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/10 19:06:02 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
 void	player_coordinates(int i, int j, t_img *data, int orient)
 {
@@ -59,7 +59,11 @@ void	search_for_player(char **map, t_img *data)
 
 void	window_init(t_img *myimg, int sw)
 {
+	if (myimg->reader->r_x > 2560)
+		myimg->reader->r_x = 2560;
 	myimg->plane_x = myimg->reader->r_x;
+	if (myimg->reader->r_y > 1440)
+		myimg->reader->r_y = 1440;
 	myimg->plane_y = myimg->reader->r_y;
 	myimg->mlx_ptr = mlx_init();
 	if (sw == 0)

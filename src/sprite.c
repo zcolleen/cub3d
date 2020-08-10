@@ -6,16 +6,15 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 13:01:20 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/10 14:08:34 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/10 17:30:50 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
 double	fix_angle(t_img *myimg, int col_hight)
 {
 	double	trace;
-	double	angle;
 
 	trace = myimg->play->trace;
 	while (trace > 2 * PI)
@@ -62,7 +61,7 @@ int		take_color_from_sprite(t_img *myimg, int x, int top_point, int col_hight)
 	return (*data);
 }
 
-void	draw_sprite_col(t_img *myimg, double save, int x, int col_hight)
+void	draw_sprite_col(t_img *myimg, int x, int col_hight)
 {
 	int		top_point;
 	int		color;
@@ -89,7 +88,6 @@ void	draw_sprite(t_img *myimg, double trace, int col_hight, t_one_spr *point)
 {
 	int		x;
 	double	right_point;
-	double	proj_dist;
 
 	x = (int)((myimg->plane_x / (PI / 3.0)) * trace);
 	myimg->sprite->image_x = x;
@@ -101,7 +99,7 @@ void	draw_sprite(t_img *myimg, double trace, int col_hight, t_one_spr *point)
 	while (x < right_point)
 	{
 		if (myimg->sprite->dis_mass[x] > point->dist_to_sprite)
-			draw_sprite_col(myimg, trace, x, col_hight);
+			draw_sprite_col(myimg, x, col_hight);
 		x++;
 	}
 }

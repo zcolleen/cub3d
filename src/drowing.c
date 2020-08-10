@@ -6,11 +6,11 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:35:10 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/10 15:49:47 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/10 18:16:24 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
 
 void	put_pixel(t_img *data, int x, int y, int color)
@@ -26,6 +26,7 @@ int		take_color(t_img *myimg, int y, double k)
 	unsigned int	*data;
 	int				x;
 
+	data = NULL;
 	y = (int)(k * y);
 	x = myimg->text->square_coord;
 	if (myimg->text->flag == 1)
@@ -75,7 +76,7 @@ void	drowing_floor(int col_hight, int x, t_img *myimg)
 	}
 }
 
-void	proector(double distance, t_img *myimg, int x, double angle)
+void	proector(double distance, t_img *myimg, int x)
 {
 	int		col_hight;
 	int		top_point;

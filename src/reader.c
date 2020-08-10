@@ -6,11 +6,11 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/30 19:15:29 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/10 14:11:01 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/10 17:28:47 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
 void	cleaner(t_img *myimg);
 
@@ -456,8 +456,12 @@ void	path_parser(t_img *myimg)
 	int fd3;
 	int fd4;
 	int fd5;
-	
 
+	fd1 = 0;
+	fd2 = 0;
+	fd3 = 0;
+	fd4 = 0;
+	fd5 = 0;
 	if ((fd1 = open(myimg->reader->path_to_east, O_RDONLY)) < 0 ||
 	(fd2 = open(myimg->reader->path_to_north, O_RDONLY)) < 0 ||
 	(fd3 = open(myimg->reader->path_to_south, O_RDONLY)) < 0 ||

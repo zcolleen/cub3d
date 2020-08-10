@@ -6,11 +6,11 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 16:15:58 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/10 14:09:19 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/10 19:17:19 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
 int		hooker(int keycode, t_img *myimg);
 int		drawer(t_img *myimg);
@@ -94,7 +94,6 @@ int		save_f_c(t_img *myimg)
 int		starter(char **argv)
 {
 	t_img *myimg;
-	int i = 0;
 	
 	if (!(myimg = (t_img *)malloc(sizeof(t_img))))
 		return (-1);
@@ -136,7 +135,7 @@ int		drawer(t_img *myimg)
 	{
 		dist = casting(myimg->map, myimg, trace, save);
 		myimg->sprite->dis_mass[x] = dist;
-		proector(dist, myimg, x, trace);
+		proector(dist, myimg, x);
 		trace = (PI / 3.0) / myimg->plane_x + trace;
 		x++;
 	}
