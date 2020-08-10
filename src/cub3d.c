@@ -6,20 +6,13 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 16:15:58 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/10 19:17:19 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/10 21:38:03 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-int		hooker(int keycode, t_img *myimg);
-int		drawer(t_img *myimg);
-void	all_free(t_img *myimg);
-void	list_map_clear(t_img *myimg);
-int		red_cross(t_img *myimg);
-
-
-double	starting_trace(t_img *myimg) 
+double	starting_trace(t_img *myimg)
 {
 	if (myimg->play->orientation == 1)
 		return (4.0 * PI / 3.0);
@@ -53,8 +46,10 @@ int		save_textures(t_img *myimg)
 	t_east	*east;
 	t_south *south;
 
-	if (!(north = (t_north*)malloc(sizeof(t_north))) || !(east = (t_east*)malloc(sizeof(t_east))) ||
-	!(west = (t_west*)malloc(sizeof(t_west))) || !(south = (t_south*)malloc(sizeof(t_south))))
+	if (!(north = (t_north*)malloc(sizeof(t_north))) ||
+	!(east = (t_east*)malloc(sizeof(t_east))) ||
+	!(west = (t_west*)malloc(sizeof(t_west))) ||
+	!(south = (t_south*)malloc(sizeof(t_south))))
 		return (-1);
 	if (texturing(myimg) == -1)
 		return (-1);

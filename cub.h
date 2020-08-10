@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 16:21:12 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/10 21:24:10 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/10 21:34:44 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ typedef struct	s_img
 	void		*mlx_img;
 	int			bits_per_pixel;
 	int			line_length;
+	int			skip;
 	int			endian;
 	char		*addr;
 	double		plane_x;
@@ -204,6 +205,10 @@ int			drawer(t_img *myimg);
 int			starter_bmp(char **argv);
 void		all_free(t_img *myimg);
 void		cleaner(t_img *myimg);
-
+int			hooker(int keycode, t_img *myimg);
+int			drawer(t_img *myimg);
+void		all_free(t_img *myimg);
+void		list_map_clear(t_img *myimg);
+int			red_cross(t_img *myimg);
 
 #endif

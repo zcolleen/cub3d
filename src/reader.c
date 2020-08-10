@@ -6,19 +6,19 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/30 19:15:29 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/10 20:47:51 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/10 21:30:53 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-void	map_dup(char **map, int fd, int skip, int j, t_img *myimg)
+void	map_dup(char **map, int fd, int j, t_img *myimg)
 {
 	char	*line;
 	int		i;
 
 	i = 0;
-	while (skip-- > 0)
+	while (myimg->skip-- > 0)
 	{
 		get_next_line(fd, &line);
 		free(line);
@@ -41,7 +41,7 @@ void	map_dup(char **map, int fd, int skip, int j, t_img *myimg)
 	close(fd);
 }
 
-void	alloc_map(char **argv, int j, t_img *myimg, int i, int fd)
+void	alloc_map(char **argv, int j, t_img *myimg, int fd)
 {
 	char **map;
 
@@ -60,7 +60,7 @@ void	alloc_map(char **argv, int j, t_img *myimg, int i, int fd)
 		exit(1);
 	}
 	fd = open(argv[1], O_RDONLY);
-	map_dup(map, fd, i, j, myimg);
+	map_dup(map, fd, j, myimg);
 }
 
 void	cleaner(t_img *myimg)
@@ -366,7 +366,7 @@ void	check_follower(int follower, t_img *myimg, char *line)
 	}
 }
 
-void	get_l(int fd, t_img *myimg, int *i, int *j)
+void	get_l(int fd, t_img *myimg, int *j)
 {
 	int		follower;
 	char	*line;
@@ -379,7 +379,7 @@ void	get_l(int fd, t_img *myimg, int *i, int *j)
 			ft_putstr_fd("Error:\nwrong configuration", 1);
 			exit(0);
 		}
-		(*i)++;
+		myimg->skip++;
 		free(line);
 		if ((check_for_elem(myimg)) == 1)
 			break ;
@@ -489,10 +489,8 @@ void	reader(t_img *myimg, char **argv)
 {
 	int			fd;
 	t_reader	*reader;
-	int			i;
 	int			j;
 
-	i = 0;
 	j = 0;
 	if (!(reader = (t_reader*)malloc(sizeof(t_reader))))
 		malloc_exit(myimg);
@@ -505,8 +503,9 @@ void	reader(t_img *myimg, char **argv)
 		perror("Error");
 		exit(1);
 	}
-	get_l(fd, myimg, &i, &j);
-	alloc_map(argv, j, myimg, i, fd);
+	myimg->skip = 0;
+	get_l(fd, myimg, &j);
+	alloc_map(argv, j, myimg, fd);
 	path_parser(myimg);
 	map_parser(myimg);
 }
