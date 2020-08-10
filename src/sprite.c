@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 13:01:20 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/10 20:26:41 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/10 20:30:23 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,9 +242,7 @@ void		sprite_drawer(t_img *myimg)
 	int			col_hight;
 	double		proj_dist;
 	t_one_spr	*point;
-	int			counter;
 
-	counter = 0;
 	proj_dist = (myimg->plane_x / 2.0) / tan(PI / 6.0);
 	point = myimg->sprite->head;
 	while (point != NULL)
@@ -252,7 +250,6 @@ void		sprite_drawer(t_img *myimg)
 		point->dist_to_sprite = sqrt(pow((myimg->play->x - point->x), 2.0) +
 		pow((myimg->play->y - point->y), 2.0));
 		point = point->next;
-		counter++;
 	}
 	list_sort(&(myimg->sprite->head));
 	point = myimg->sprite->head;

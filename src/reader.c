@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/30 19:15:29 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/10 20:16:45 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/10 20:47:51 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,30 @@ void	cleaner(t_img *myimg)
 	free(myimg);
 }
 
+void	writer_char(char c, t_img *myimg, char *path)
+{
+	if (c == 'N')
+	{
+		myimg->reader->path_to_north = path;
+		myimg->reader->flag_n = 1;
+	}
+	else if (c == 'S')
+	{
+		myimg->reader->path_to_south = path;
+		myimg->reader->flag_s = 1;
+	}
+	else if (c == 'E')
+	{
+		myimg->reader->path_to_east = path;
+		myimg->reader->flag_e = 1;
+	}
+	else if (c == 'W')
+	{
+		myimg->reader->path_to_west = path;
+		myimg->reader->flag_w = 1;
+	}
+}
+
 int		writer(char c, t_img *myimg, char *path, int sw)
 {
 	if (sw == 0)
@@ -99,35 +123,14 @@ int		writer(char c, t_img *myimg, char *path, int sw)
 		myimg->reader->flag_sp = 1;
 	}
 	else
-	{
-		if (c == 'N')
-		{
-			myimg->reader->path_to_north = path;
-			myimg->reader->flag_n = 1;
-		}
-		else if (c == 'S')
-		{
-			myimg->reader->path_to_south = path;
-			myimg->reader->flag_s = 1;
-		}
-		else if (c == 'E')
-		{
-			myimg->reader->path_to_east = path;
-			myimg->reader->flag_e = 1;
-		}
-		else if (c == 'W')
-		{
-			myimg->reader->path_to_west = path;
-			myimg->reader->flag_w = 1;
-		}
-	}
+		writer_char(c, myimg, path);
 	return (0);
 }
 
 int		allocator(char *line, t_img *myimg, char c, int sw)
 {
-	int i;
-	char *path;
+	int		i;
+	char	*path;
 
 	i = 0;
 	while (line[i] != ' ' && line[i] != '\0')
@@ -191,7 +194,7 @@ int		check_line_f_c(char *line)
 {
 	if (*line == ',' && ft_isdigit(*(line + 1)))
 		return (0);
-	else 
+	else
 	{
 		ft_putstr_fd("Error:\nbad color line\n", 1);
 		return (-1);
@@ -262,7 +265,7 @@ int		parcer_f_c(char *line, t_img *myimg, char c)
 int		check_line_res(char *line)
 {
 	int i;
-	
+
 	i = 0;
 	while (ft_isdigit(line[i]))
 		i++;
@@ -289,7 +292,7 @@ int		allocator_r(char *line, t_img *myimg)
 	return (0);
 }
 
-int 	parcer_r(char *line, t_img *myimg)
+int		parcer_r(char *line, t_img *myimg)
 {
 	int i;
 
@@ -316,8 +319,9 @@ int		parce_line(t_img *myimg, char *line)
 	while (line[i] == ' ' && line[i] != '\0' && line[i + 1] != '\0')
 		i++;
 	if (line[i] == 'S' && line[i + 1] != 'O' && !(myimg->reader->flag_sp))
-		return(parcer(line + i + 1, myimg, line[i], 0));
-	else if ((line[i] == 'N' && line[i + 1] == 'O' && !(myimg->reader->flag_n)) ||
+		return (parcer(line + i + 1, myimg, line[i], 0));
+	else if ((line[i] == 'N' && line[i + 1] == 'O' &&
+	!(myimg->reader->flag_n)) ||
 	(line[i] == 'S' && line[i + 1] == 'O' && !(myimg->reader->flag_s)) ||
 	(line[i] == 'W' && line[i + 1] == 'E' && !(myimg->reader->flag_w))
 	|| (line[i] == 'E' && line[i + 1] == 'A' && !(myimg->reader->flag_e)))
@@ -364,8 +368,8 @@ void	check_follower(int follower, t_img *myimg, char *line)
 
 void	get_l(int fd, t_img *myimg, int *i, int *j)
 {
-	int follower;
-	char *line;
+	int		follower;
+	char	*line;
 
 	while ((follower = get_next_line(fd, &line)) > 0)
 	{
@@ -378,7 +382,7 @@ void	get_l(int fd, t_img *myimg, int *i, int *j)
 		(*i)++;
 		free(line);
 		if ((check_for_elem(myimg)) == 1)
-			break;
+			break ;
 	}
 	check_follower(follower, myimg, line);
 	while ((follower = get_next_line(fd, &line)) > 0)
@@ -391,7 +395,7 @@ void	get_l(int fd, t_img *myimg, int *i, int *j)
 	free(line);
 }
 
-int 	check_for_valid_char(char c)
+int		check_for_valid_char(char c)
 {
 	if (c == ' ' || c == '\0' || c == '1' ||
 	c == '2' || c == '0')
@@ -437,9 +441,8 @@ void	map_parser(t_img *myimg)
 	}
 }
 
-void	closer(int i, int j, int k, int c, int b)
+void	closer(int j, int k, int c, int b)
 {
-	close(i);
 	close(j);
 	close(k);
 	close(c);
@@ -465,12 +468,21 @@ void	path_parser(t_img *myimg)
 	(fd4 = open(myimg->reader->path_to_sprite, O_RDONLY)) < 0 ||
 	(fd5 = open(myimg->reader->path_to_west, O_RDONLY)) < 0)
 	{
-		closer(fd1, fd2, fd3, fd4, fd5);
+		close(fd1);
+		closer(fd2, fd3, fd4, fd5);
 		cleaner(myimg);
 		ft_putstr_fd("Error:\ninvalid path\n", 1);
 		exit(0);
 	}
-	closer(fd1, fd2, fd3, fd4, fd5);
+	close(fd1);
+	closer(fd2, fd3, fd4, fd5);
+}
+
+void	malloc_exit(t_img *myimg)
+{
+	free(myimg);
+	perror("Error");
+	exit(1);
 }
 
 void	reader(t_img *myimg, char **argv)
@@ -478,16 +490,12 @@ void	reader(t_img *myimg, char **argv)
 	int			fd;
 	t_reader	*reader;
 	int			i;
-	int 		j;
+	int			j;
 
 	i = 0;
 	j = 0;
 	if (!(reader = (t_reader*)malloc(sizeof(t_reader))))
-	{
-		free(myimg);
-		perror("Error");
-		exit(1);
-	}
+		malloc_exit(myimg);
 	myimg->reader = reader;
 	init_reader(myimg);
 	if ((fd = open(argv[1], O_RDONLY)) == -1)
