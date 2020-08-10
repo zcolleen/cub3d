@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/30 19:15:29 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/03 16:42:32 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/10 14:11:01 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -501,28 +501,3 @@ void	reader(t_img *myimg, char **argv)
 	path_parser(myimg);
 	map_parser(myimg);
 }
-
-/*int		main(int argc, char **argv)
-{
-	t_img *myimg;
-	int i;
-
-	i = 0;
-	myimg = (t_img*)malloc(sizeof(t_img));
-	if (argc == 2)
-		reader(myimg, argv);
-	printf("%s\n", myimg->reader->path_to_north);
-	printf("%s\n", myimg->reader->path_to_east);
-	printf("%s\n", myimg->reader->path_to_south);
-	printf("%s\n", myimg->reader->path_to_west);
-	printf("%s\n", myimg->reader->path_to_sprite);
-	printf("red floor: %d, green floor: %d, blue floor: %d\n", myimg->reader->r_f, myimg->reader->g_f, myimg->reader->b_f);
-	printf("red cell: %d, green cell: %d, blue cell: %d\n", myimg->reader->r_c, myimg->reader->g_c, myimg->reader->b_c);
-	printf("resolution x: %d, resolution y: %d\n", myimg->reader->r_x, myimg->reader->r_y);
-	while (myimg->reader->map[i] != NULL)
-	{
-		printf("%s\n", myimg->reader->map[i]);
-		i++;
-	}
-	return(0);
-}*/

@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 19:18:09 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/09 17:13:22 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/10 14:10:32 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,14 @@
 
 int		intersect(char **map, double x, double y, t_img *myimg)
 {
-	// write(1, "\n", 1);
-	// ft_putnbr_fd((int)(y / RES), 1);
-	// write(1, "\n", 1);
-	// ft_putnbr_fd((int)(x / RES), 1);
-	// write(1, "\n", 1);
 	int a;
 	int b;
 
 	a = (int)(y / RES);
 	b = (int)(x / RES);
-	// ft_putnbr_fd(myimg->play->max_y, 1);
-	// ft_putnbr_fd(a, 1);
-	// write(1, ", ", 2);
-	// ft_putnbr_fd(b, 1);
-	// write(1, "\n", 1);
 	if (a < 0 || b < 0 || a >= myimg->play->max_y || b >= myimg->play->max_x[a])
 		return (1);
-	// write(1, &(map[(int)(y / RES)][(int)(x / RES)]), 1);
-	if (map[a][b] == '1')//ограничить координаты
+	if (map[a][b] == '1')
 		return (1);
 	return (0);
 }
@@ -77,10 +66,8 @@ double	trace_vert(char **map, t_img *myimg, double trace)
 		Ay = Ay + Ya;
 	}
 	myimg->text->square_coord_vert = Ay;
-//	printf("vert_point : Ax = %f | Ay = %f\n", Ax, Ay);
 	return (sqrt((pow((myimg->play->x - Ax), 2.0) +
 	pow((myimg->play->y - Ay), 2.0))));
-//	return (fabs((myimg->play->y - Ay) / sin(trace)));
 }
 
 double	trace_hor(char **map, t_img *myimg, double trace)
@@ -103,10 +90,6 @@ double	trace_hor(char **map, t_img *myimg, double trace)
 		Ay = Ay + Ya;
 	}
 	myimg->text->square_coord_hor = Ax;
-	// if (trace >= PI && trace <= 2 * PI)
-	// 	myimg->text->square_coord_hor = (int)((int)(Ax / RES) * RES + RES - Ax); 
-//	printf("hor_point : Ax = %f | Ay = %f\n", Ax, Ay);
-//	return (fabs((myimg->play->y - Ay) / sin(trace)));
 	return(sqrt((pow((myimg->play->x - Ax), 2.0) +
 	pow((myimg->play->y - Ay), 2.0))));
 }
@@ -122,18 +105,18 @@ int			undefault_angle(double trace)
 
 void		switch_texture(t_img *myimg, double trace, int sw)
 {
-	if (sw == 0)//вертикали
+	if (sw == 0)
 	{
-		if (trace >= 0 && trace < PI)//юг
+		if (trace >= 0 && trace < PI)
 			myimg->text->flag = 4;
-		else//север
+		else
 			myimg->text->flag = 1;
 	}
-	else//горизонтали
+	else
 	{
-		if (trace >= PI / 2.0 && trace < 3.0 * PI / 2.0)//восток
+		if (trace >= PI / 2.0 && trace < 3.0 * PI / 2.0)
 			myimg->text->flag = 2;
-		else//запад
+		else
 			myimg->text->flag = 3;
 	}
 }
@@ -153,7 +136,6 @@ double		casting(char **map, t_img *myimg, double trace, double save_angle)
 		trace = trace + 2.0 * PI;
 	while (trace >= 2 * PI)
 		trace = trace - 2 * PI;
-//	printf("fixed angle: %f\n", trace / PI * 180.0);
 	if (undefault_angle(trace) == 1)
 	{
 		distance1 = trace_hor(map, myimg, trace) * fabs(cos(save));
@@ -175,7 +157,5 @@ double		casting(char **map, t_img *myimg, double trace, double save_angle)
 		distance1 = distance1 * fabs(cos(save));
 		switch_texture(myimg, trace, 1);
 	}
-// * fabs(sin(trace))
-//	printf("distance : %f\n", distance1);
 	return (distance1);
 }

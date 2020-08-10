@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 16:21:12 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/10 13:48:48 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/10 16:10:39 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@
 #include <fcntl.h>
 #include "./libft/libft.h"
 #include <stdio.h>
-#include <mlx.h>
+//#include <mlx.h>
+#include "minilibx/mlx.h"
 #include <math.h>
 
 typedef	struct			s_one_spr

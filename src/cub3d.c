@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 16:15:58 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/10 13:45:19 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/10 14:09:19 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int		hooker(int keycode, t_img *myimg);
 int		drawer(t_img *myimg);
 void	all_free(t_img *myimg);
 void	list_map_clear(t_img *myimg);
-//int		red_cross(int keycode, t_img *myimg);
 int		red_cross(t_img *myimg);
 
 
@@ -74,9 +73,6 @@ int		save_textures(t_img *myimg)
 	return (0);
 }
 
-//  0xFFB6C1
-// 0x00FF00
-
 int		save_f_c(t_img *myimg)
 {
 	t_f_c *f_c;
@@ -90,22 +86,18 @@ int		save_f_c(t_img *myimg)
 	f_c->green_f = myimg->reader->g_f;
 	f_c->blue_f = myimg->reader->b_f;
 	f_c->cell_col = (f_c->red_c << 16) |  (f_c->green_c << 8) | (f_c->blue_c << 0);
-	// printf("\n%d\n", f_c->cell_col);	
-	// exit(0);
 	f_c->floor_col = (f_c->red_f << 16) |  (f_c->green_f << 8) | (f_c->blue_f << 0);
 	myimg->f_c = f_c;
 	return (0);
 }
 
-int		starter(char **argv)//начало кода
+int		starter(char **argv)
 {
 	t_img *myimg;
 	int i = 0;
 	
 	if (!(myimg = (t_img *)malloc(sizeof(t_img))))
 		return (-1);
-	// if (!(map = save_map(argv, myimg)))
-	// 	return (-1);
 	reader(myimg, argv);
 	init(myimg->reader->map, myimg, 0);
 	if (init_sprite(myimg) == -1)
@@ -114,12 +106,6 @@ int		starter(char **argv)//начало кода
 	flood_fill(myimg->reader->map, myimg, myimg->play->j, myimg->play->i);
 	myimg->play->trace = starting_trace(myimg);
 	myimg->map = myimg->reader->map;
-	// while (myimg->map[i] != NULL)
-	// {
-	// 	printf("%sok\n", myimg->map[i]);
-	// 	i++;
-	// }
-	
 	if (save_textures(myimg) == -1 || save_f_c(myimg) == -1)
 		return (-1);
 	drawer(myimg);
@@ -148,12 +134,9 @@ int		drawer(t_img *myimg)
 	x = 0;
 	while (trace < save && x < myimg->plane_x)
 	{
-		// angle = (trace / PI) * 180;
-		// printf("angle : %f = %f\n", trace, angle);
 		dist = casting(myimg->map, myimg, trace, save);
 		myimg->sprite->dis_mass[x] = dist;
 		proector(dist, myimg, x, trace);
-		//printf("\nplayers coordinate: %f - x %f - y\n", myimg->play->x, myimg->play->y);
 		trace = (PI / 3.0) / myimg->plane_x + trace;
 		x++;
 	}

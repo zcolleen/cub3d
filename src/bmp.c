@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/09 15:35:05 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/10 13:48:58 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/10 16:10:52 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ void	saver_bmp(t_img *myimg)
 	unsigned int image_size;
 
 	image_size = myimg->plane_x * myimg->plane_y * 4 + 54;
-//0666
-//S_IRUSR|S_IWUSR|S_IRGRP|S_IWGRP|S_IROTH|S_IWOTH
 	fd = open("save.bmp", O_WRONLY | O_CREAT | O_TRUNC | O_APPEND, 0666);
 	header(myimg, image_size, fd);
 	save_image(myimg, fd);
@@ -94,12 +92,6 @@ int		starter_bmp(char **argv)
 	flood_fill(myimg->reader->map, myimg, myimg->play->j, myimg->play->i);
 	myimg->play->trace = starting_trace(myimg);
 	myimg->map = myimg->reader->map;
-	// while (myimg->map[i] != NULL)
-	// {
-	// 	printf("%sok\n", myimg->map[i]);
-	// 	i++;
-	// }
-	
 	if (save_textures(myimg) == -1 || save_f_c(myimg) == -1)
 		return (-1);
 	drawer(myimg);

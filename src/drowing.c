@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:35:10 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/10 14:06:03 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/10 15:49:47 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,8 @@ void	put_x_in_image(t_img *myimg)
 		myimg->text->square_coord = (int)(myimg->text->square_coord_hor / RES) * RES + RES - myimg->text->square_coord_hor;
 	else if (myimg->text->flag == 3)
 		myimg->text->square_coord = myimg->text->square_coord_vert - (int)(myimg->text->square_coord_vert / RES) * RES;
-//		myimg->text->square_coord = (int)(myimg->text->square_coord_vert / RES) * RES + RES - myimg->text->square_coord_vert;
 	else if (myimg->text->flag == 2)
 		myimg->text->square_coord = (int)(myimg->text->square_coord_vert / RES) * RES + RES - myimg->text->square_coord_vert;
-//		myimg->text->square_coord = myimg->text->square_coord_vert - (int)(myimg->text->square_coord_vert / RES) * RES;
 }
 
 void	drowing_cell(int x, int y_point, t_img *myimg)
@@ -58,8 +56,6 @@ void	drowing_cell(int x, int y_point, t_img *myimg)
 	int i;
 
 	i = 0;
-//	printf("\n%d\n", myimg->f_c->cell_col);
-//	exit(0);
 	while (i < y_point)
 	{
 		put_pixel(myimg, x, i, myimg->f_c->cell_col);
@@ -78,8 +74,7 @@ void	drowing_floor(int col_hight, int x, t_img *myimg)
 		i++;
 	}
 }
-// 0xFFB6C1
-// 0x00FF00
+
 void	proector(double distance, t_img *myimg, int x, double angle)
 {
 	int		col_hight;
@@ -87,16 +82,7 @@ void	proector(double distance, t_img *myimg, int x, double angle)
 	int		y_point;
 	double	save_col;
 	double	save_top;
-//	double	save;
 
-//	save = myimg->play->trace + PI / 3.0;
-	// if (angle > 2 * PI)
-	// 	angle = angle - 2 * PI;
-	// if (angle < 0)
-	// 	angle = angle + 2 * PI;
-//	proj_dist = (myimg->plane_x / 2.0) / tan(PI / 6.0);
-//	printf("proj_dist: %f", proj_dist);
-//	printf("distance: %f", distance);
 	col_hight = (int)((((myimg->plane_y * (myimg->plane_x / 2.0) / tan(PI / 6.0))) / 2.0) / (SCALE * distance));
 	save_col = col_hight;
 	save_top = (int)fabs((myimg->plane_y / 2.0) - (col_hight / 2.0));

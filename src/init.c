@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 14:47:36 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/10 13:57:47 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/10 14:10:41 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,8 +130,6 @@ int		init(char **map, t_img *myimg, int sw)
 		i++;
 	}
 	myimg->play->max_x = max_x;
-	// printf("\n%d\n%d\n", myimg->play->i, myimg->play->j);
-//	flood_fill(map, myimg, myimg->play->j, myimg->play->i);
 	window_init(myimg, sw);
 	return (0);
 }
