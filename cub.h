@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 16:21:12 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/11 16:29:01 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/11 16:42:49 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,8 @@ void					switch_texture(t_img *myimg, double trace, int sw);
 double					angle(double trace, int sw);
 int						col_limit(int col_hight, t_img *myimg);
 void					put_x_in_image(t_img *myimg);
-void					player_coordinates(int i, int j, t_img *data, int orient);
+void					player_coordinates(int i, int j,
+t_img *data, int orient);
 int						ft_isplayer(char c);
 int						undefault_angle(double trace);
 int						save_textures(t_img *myimg);
@@ -236,5 +237,19 @@ void					get_l(int fd, t_img *myimg, int *j);
 void					check_follower(int follower, t_img *myimg, char *line);
 int						check_for_elem(t_img *myimg);
 int						parce_line(t_img *myimg, char *line);
+int						parcer_f_c(char *line, t_img *myimg, char c);
+int						check_line_res(char *line);
+int						allocator_r(char *line, t_img *myimg);
+int						parcer_r(char *line, t_img *myimg);
+int						parce_line(t_img *myimg, char *line);
+int						allocator_f_c(char *line, t_img *myimg, char c);
+int						filler(char *line, int *i, int *j, int *k);
+int						check_color(int i);
+int						check_line_f_c(char *line);
+int						scip_digit(char *line);
+int						parcer(char *line, t_img *myimg, char c, int sw);
+void					writer_char(char c, t_img *myimg, char *path);
+void					cleaner(t_img *myimg);
+void					alloc_map(char **argv, int j, t_img *myimg, int fd);
 
 #endif

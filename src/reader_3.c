@@ -6,12 +6,11 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 16:25:13 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/11 16:26:08 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/11 16:30:54 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
 
 int		check_for_elem(t_img *myimg)
 {
