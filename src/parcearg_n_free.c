@@ -6,11 +6,11 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 15:59:58 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/11 16:02:00 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/11 18:05:19 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
 void	list_map_clear(t_img *myimg)
 {

@@ -6,11 +6,11 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 16:38:59 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/11 16:40:56 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/11 18:05:47 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
 void	map_dup(char **map, int fd, int j, t_img *myimg)
 {

@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 14:47:36 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/11 15:52:39 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/11 19:54:06 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,15 @@ void	search_for_player(char **map, t_img *data)
 
 void	window_init(t_img *myimg, int sw)
 {
-	if (myimg->reader->r_x > 2560)
-		myimg->reader->r_x = 2560;
+	int sizex;
+	int sizey;
+
+	mlx_get_screen_size(myimg->mlx_ptr, &sizex, &sizey);
+	if (myimg->reader->r_x > sizex)
+		myimg->reader->r_x = sizex;
 	myimg->plane_x = myimg->reader->r_x;
-	if (myimg->reader->r_y > 1440)
-		myimg->reader->r_y = 1440;
+	if (myimg->reader->r_y > sizey)
+		myimg->reader->r_y = sizey;
 	myimg->plane_y = myimg->reader->r_y;
 	myimg->mlx_ptr = mlx_init();
 	if (sw == 0)

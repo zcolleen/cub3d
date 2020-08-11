@@ -6,11 +6,11 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 15:56:13 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/11 15:58:21 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/11 18:05:56 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
 int		texturing(t_img *myimg)
 {

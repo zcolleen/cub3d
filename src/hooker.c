@@ -6,11 +6,11 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 15:27:34 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/11 15:49:46 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/11 18:05:05 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
 void	hooker_fifth(int keycode, t_img *myimg)
 {

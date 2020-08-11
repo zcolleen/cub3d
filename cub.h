@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 16:21:12 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/11 16:42:49 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/11 19:53:27 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <fcntl.h>
 # include "./libft/libft.h"
 # include <stdio.h>
-# include <mlx.h>
+# include "mlx/mlx.h"
 # include <math.h>
 
 typedef	struct			s_one_spr

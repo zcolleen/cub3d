@@ -6,11 +6,11 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 16:33:50 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/11 16:34:43 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/11 18:05:42 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
 int		scip_digit(char *line)
 {

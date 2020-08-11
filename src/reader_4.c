@@ -6,11 +6,11 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 16:31:22 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/11 16:31:54 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/11 18:05:37 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
 int		parcer_f_c(char *line, t_img *myimg, char c)
 {

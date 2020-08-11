@@ -6,11 +6,11 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 16:06:37 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/11 16:11:16 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/11 18:05:16 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
 double		fix_angle(t_img *myimg, int col_hight)
 {

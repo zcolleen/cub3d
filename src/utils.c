@@ -6,11 +6,11 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 15:43:31 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/11 15:53:25 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/11 18:06:02 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
 void	split_bytes(int size, unsigned char *header)
 {

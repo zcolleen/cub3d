@@ -6,11 +6,11 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 16:11:52 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/11 16:12:31 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/11 18:05:11 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
 void		swap(t_one_spr *first, t_one_spr *second, t_one_spr **head)
 {

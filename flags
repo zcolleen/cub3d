@@ -1,0 +1,4 @@
+
+#FLAG_LINK = -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit $(LIBFT)/libft.a 
+
+#FLAG_OBJ = -I . -I gnl/get_next_line.h -I /usr/local/include -c -Wall -Wextra -Werror

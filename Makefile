@@ -6,11 +6,15 @@
 #    By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/10 14:14:15 by zcolleen          #+#    #+#              #
-#    Updated: 2020/08/11 16:54:41 by zcolleen         ###   ########.fr        #
+#    Updated: 2020/08/11 18:14:31 by zcolleen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
+
+MLX_LIB = libmlx.dylib
+
+MLX = mlx
 
 SOURCE = src/bmp.c src/casting.c src/cub3d.c src/drowing.c src/init.c src/reader.c\
 	src/sprite.c gnl/get_next_line.c gnl/get_next_line_utils.c src/hooker.c src/utils.c\
@@ -22,9 +26,9 @@ HEADER = cub.h
 
 LIBFT = libft
 
-FLAG_OBJ = -I . -I gnl/get_next_line.h -I /usr/local/include -c -Wall -Wextra -Werror
+FLAG_OBJ = -I . -I gnl/get_next_line.h -Imlx -c -Wall -Wextra -Werror
 
-FLAG_LINK = -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit $(LIBFT)/libft.a 
+FLAG_LINK = -Lmlx -lmlx -framework OpenGL -framework AppKit $(LIBFT)/libft.a 
 
 OBJ = $(SOURCE:.c=.o)
 
@@ -34,16 +38,20 @@ OBJ = $(SOURCE:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
+	make -C $(MLX)
+	cp $(MLX)/$(MLX_LIB) ./
 	make bonus -C $(LIBFT)
 	gcc $(FLAG_LINK) $(OBJ) -o $(NAME)
 
 clean:
 	rm -f $(OBJ)
 	make clean -C $(LIBFT)
+	make clean -C $(MLX)
 
 fclean: clean
 	rm -f $(NAME)
 	make fclean -C $(LIBFT)
+	rm -rf $(MLX_LIB)
 
 re: fclean all
 

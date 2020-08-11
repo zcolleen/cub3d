@@ -6,11 +6,11 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 16:14:35 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/11 16:18:08 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/11 18:05:24 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
 void	map_parser(t_img *myimg)
 {
