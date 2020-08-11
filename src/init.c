@@ -6,33 +6,11 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 14:47:36 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/10 20:11:07 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/11 15:52:39 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
-
-void	player_coordinates(int i, int j, t_img *data, int orient)
-{
-	data->play->i = i;
-	data->play->j = j;
-	data->play->x = j * RES + RES / 2 - 1;
-	data->play->y = i * RES + RES / 2 - 1;
-	data->play->orientation = orient;
-}
-
-int		ft_isplayer(char c)
-{
-	if (c == 'N')
-		return (1);
-	if (c == 'S')
-		return (2);
-	if (c == 'E')
-		return (3);
-	if (c == 'W')
-		return (4);
-	return (0);
-}
 
 void	search_for_player(char **map, t_img *data)
 {

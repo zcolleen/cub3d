@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 16:21:12 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/11 15:28:47 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/11 16:01:36 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,6 +210,18 @@ void					all_free(t_img *myimg);
 void					list_map_clear(t_img *myimg);
 int						red_cross(t_img *myimg);
 int						hooker(int keycode, t_img *myimg);
-
+void					split_bytes(int size, unsigned char *header);
+void					switch_texture(t_img *myimg, double trace, int sw);
+double					angle(double trace, int sw);
+int						col_limit(int col_hight, t_img *myimg);
+void					put_x_in_image(t_img *myimg);
+void					player_coordinates(int i, int j, t_img *data, int orient);
+int						ft_isplayer(char c);
+int						undefault_angle(double trace);
+int						save_textures(t_img *myimg);
+int						save_f_c(t_img *myimg);
+void					check_save(char **argv);
+void					parce_argv(char **argv);
+void					all_free(t_img *myimg);
 
 #endif

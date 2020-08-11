@@ -6,19 +6,11 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/09 15:35:05 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/11 13:29:54 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/11 15:43:53 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
-
-void	split_bytes(int size, unsigned char *header)
-{
-	header[0] = ((unsigned char)size);
-	header[1] = ((unsigned char)(size >> 8));
-	header[2] = ((unsigned char)(size >> 16));
-	header[3] = ((unsigned char)(size >> 24));
-}
 
 void	header(t_img *myimg, unsigned int image_size, int fd)
 {

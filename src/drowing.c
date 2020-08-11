@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:35:10 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/10 19:55:45 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/11 15:51:08 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,6 @@ int		take_color(t_img *myimg, int y, double k)
 	return (*data);
 }
 
-void	put_x_in_image(t_img *myimg)
-{
-	if (myimg->text->flag == 1)
-		myimg->text->square_coord = myimg->text->square_coord_hor
-		- (int)(myimg->text->square_coord_hor / RES) * RES;
-	else if (myimg->text->flag == 4)
-		myimg->text->square_coord = (int)(myimg->text->square_coord_hor / RES)
-		* RES + RES - myimg->text->square_coord_hor;
-	else if (myimg->text->flag == 3)
-		myimg->text->square_coord = myimg->text->square_coord_vert
-		- (int)(myimg->text->square_coord_vert / RES) * RES;
-	else if (myimg->text->flag == 2)
-		myimg->text->square_coord = (int)(myimg->text->square_coord_vert / RES)
-		* RES + RES - myimg->text->square_coord_vert;
-}
-
 void	drowing_cell(int x, int y_point, t_img *myimg)
 {
 	int i;
@@ -81,15 +65,6 @@ void	drowing_floor(int col_hight, int x, t_img *myimg)
 		put_pixel(myimg, x, i, myimg->f_c->floor_col);
 		i++;
 	}
-}
-
-int		col_limit(int col_hight, t_img *myimg)
-{
-	if (col_hight == 0)
-		col_hight = 1;
-	if (col_hight >= myimg->plane_y)
-		col_hight = myimg->plane_y;
-	return (col_hight);
 }
 
 void	proector(double distance, t_img *myimg, int x)
