@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 16:21:12 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/11 16:20:41 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/11 16:29:01 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,5 +232,9 @@ void					map_parser(t_img *myimg);
 void					list_sort(t_one_spr **head);
 void					clean_exit(t_img *myimg);
 int						check_for_valid_char(char c);
+void					get_l(int fd, t_img *myimg, int *j);
+void					check_follower(int follower, t_img *myimg, char *line);
+int						check_for_elem(t_img *myimg);
+int						parce_line(t_img *myimg, char *line);
 
 #endif
