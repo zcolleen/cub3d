@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 16:21:12 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/11 16:01:36 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/11 16:20:41 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,5 +223,14 @@ int						save_f_c(t_img *myimg);
 void					check_save(char **argv);
 void					parce_argv(char **argv);
 void					all_free(t_img *myimg);
+double					fix_angle(t_img *myimg, int col_hight);
+int						write_sprite(t_img *myimg);
+int						init_sprite(t_img *myimg);
+void					malloc_exit(t_img *myimg);
+void					path_parser(t_img *myimg);
+void					map_parser(t_img *myimg);
+void					list_sort(t_one_spr **head);
+void					clean_exit(t_img *myimg);
+int						check_for_valid_char(char c);
 
 #endif

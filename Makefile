@@ -6,7 +6,7 @@
 #    By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/10 14:14:15 by zcolleen          #+#    #+#              #
-#    Updated: 2020/08/11 16:02:29 by zcolleen         ###   ########.fr        #
+#    Updated: 2020/08/11 16:17:50 by zcolleen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME = cub3D
 
 SOURCE = src/bmp.c src/casting.c src/cub3d.c src/drowing.c src/init.c src/reader.c\
 	src/sprite.c gnl/get_next_line.c gnl/get_next_line_utils.c src/hooker.c src/utils.c\
-	src/reductor.c src/saver.c src/parcearg_n_free.c
+	src/reductor.c src/saver.c src/parcearg_n_free.c src/parce_sprite.c\
+	src/list.c src/reader_2.c
 
 HEADER = cub.h
 
