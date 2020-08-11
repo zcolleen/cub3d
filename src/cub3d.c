@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 16:15:58 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/11 13:37:55 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/11 15:28:14 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,68 +204,6 @@ void	all_free(t_img *myimg)
 	list_map_clear(myimg);
 	free(myimg);
 	exit(0);
-}
-
-void	hooker_third(int keycode, t_img *myimg)
-{
-	if (keycode == 0)
-	{
-		myimg->play->x = myimg->play->x + 3 *
-		cos(myimg->play->trace + PI / 6.0 - PI / 2.0);
-		myimg->play->y = myimg->play->y + 3 *
-		sin(myimg->play->trace + PI / 6.0 - PI / 2.0);
-	}
-	if (keycode == 2)
-	{
-		myimg->play->x = myimg->play->x - 3 *
-		cos(myimg->play->trace + PI / 6.0 - PI / 2.0);
-		myimg->play->y = myimg->play->y - 3 *
-		sin(myimg->play->trace + PI / 6.0 - PI / 2.0);
-	}
-	if (keycode == 53)
-		all_free(myimg);
-}
-
-void	hooker_sec(int keycode, t_img *myimg)
-{
-	// double play_x_f;
-	// double play_y_f;
-	// double play_x_b;
-	// double play_y_b;
-
-	if (keycode == 13)
-	{
-		myimg->play->x = myimg->play->x + 3 *
-		cos(myimg->play->trace + PI / 6.0);
-		myimg->play->y = myimg->play->y + 3 *
-		sin(myimg->play->trace + PI / 6.0);
-	}	
-	if (keycode == 1)
-	{
-		myimg->play->x = myimg->play->x - 3 *
-		cos(myimg->play->trace + PI / 6.0);
-		myimg->play->y = myimg->play->y - 3 *
-		sin(myimg->play->trace + PI / 6.0);
-	}
-}
-
-int		hooker(int keycode, t_img *myimg)
-{
-	mlx_destroy_image(myimg->mlx_ptr, myimg->mlx_img);
-	myimg->mlx_img = mlx_new_image(myimg->mlx_ptr,
-	myimg->plane_x, myimg->plane_y);
-	myimg->addr = mlx_get_data_addr(myimg->mlx_img, &(myimg->bits_per_pixel),
-	&(myimg->line_length), &(myimg->endian));
-	if (keycode == 123)
-		myimg->play->trace = myimg->play->trace - (10 * PI) / myimg->plane_x;
-	if (keycode == 124)
-		myimg->play->trace = myimg->play->trace + (10 * PI) / myimg->plane_x;
-	hooker_sec(keycode, myimg);
-	hooker_third(keycode, myimg);
-	drawer(myimg);
-	mlx_put_image_to_window(myimg->mlx_ptr,
-	myimg->mlx_win, myimg->mlx_img, 0, 0);
-	return (0);
 }
 
 void	parce_argv(char **argv)

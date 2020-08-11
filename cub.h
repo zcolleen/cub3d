@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 16:21:12 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/11 13:15:23 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/11 15:28:47 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,5 +209,7 @@ int						drawer(t_img *myimg);
 void					all_free(t_img *myimg);
 void					list_map_clear(t_img *myimg);
 int						red_cross(t_img *myimg);
+int						hooker(int keycode, t_img *myimg);
+
 
 #endif
