@@ -6,7 +6,7 @@
 #    By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/10 14:14:15 by zcolleen          #+#    #+#              #
-#    Updated: 2020/08/10 17:54:19 by zcolleen         ###   ########.fr        #
+#    Updated: 2020/08/11 13:32:08 by zcolleen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,11 +24,6 @@ FLAG_OBJ = -I . -I gnl/get_next_line.h -I /usr/local/include -c -Wall -Wextra -W
 FLAG_LINK = -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit $(LIBFT)/libft.a 
 
 OBJ = $(SOURCE:.c=.o)
-
-
-#cc -I /usr/local/include cub3d.c bmp.c casting.c drowing.c init.c sprite.c reader.c gnl/get_next_line.c gnl/get_next_line_utils.c libft/libft.a
-
-#-L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit
 
 %.o:%.c $(HEADER)
 	gcc $(FLAG_OBJ) $< -o $@

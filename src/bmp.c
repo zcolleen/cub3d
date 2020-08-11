@@ -6,7 +6,7 @@
 /*   By: zcolleen <zcolleen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/09 15:35:05 by zcolleen          #+#    #+#             */
-/*   Updated: 2020/08/10 19:51:02 by zcolleen         ###   ########.fr       */
+/*   Updated: 2020/08/11 13:29:54 by zcolleen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,12 @@ int		starter_bmp(char **argv)
 	if (!(myimg = (t_img *)malloc(sizeof(t_img))))
 		return (-1);
 	reader(myimg, argv);
-	init(myimg->reader->map, myimg, 0);
+	if (init(myimg->reader->map, myimg, 0) == -1)
+		return (-1);
 	if (init_sprite(myimg) == -1)
 		return (-1);
-	write_sprite(myimg);
+	if (write_sprite(myimg) == -1)
+		return (-1);
 	flood_fill(myimg->reader->map, myimg, myimg->play->j, myimg->play->i);
 	myimg->play->trace = starting_trace(myimg);
 	myimg->map = myimg->reader->map;

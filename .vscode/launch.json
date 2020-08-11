@@ -8,7 +8,7 @@
 			"name": "(lldb) Launch",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "/Users/zcolleen/Desktop/cub3d/a.out",
+			"program": "/Users/zcolleen/Desktop/cub3d/cub3D",
 			"args": ["test.cub"],
 			"stopAtEntry": false,
 			"cwd": "/Users/zcolleen/Desktop/cub3d/",
